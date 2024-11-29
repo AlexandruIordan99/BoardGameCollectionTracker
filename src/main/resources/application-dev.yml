@@ -1,0 +1,45 @@
+#has inheritance from application.yml
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/SmallSocialNetworkDB
+    username: postgres
+    password: pass
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update  #also not good for production, change to validate then
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  mail:
+    host: localhost
+    port: 1025
+    username: postgres
+    password: pass
+    properties:
+      smtp:
+        trust: "*" #NOT RECOMMENDED FOR PRODUCTION
+      auth: true
+      starttls:
+        enable: true
+      connectiontimeout: 5000 #in ms, so after 5 seconds
+      timeout: 3000
+      writetimeout: 5000
+
+
+application:
+  security:
+    jwt:
+      secret-key: OXotaGV4I3puMiMmMCgmJmlxZjJ3bD0wYiRkeXIlOW5vZz12bC1kMDdiMHV3Y2VfPWM= #must be in base 64 to be properly decoded later
+      expiration: 864000  #equivalent to 1 day
+  emailing:
+    frontend:
+      activation-url: http://localhost:4200/activate-account
+
+server:
+  port: 8088
