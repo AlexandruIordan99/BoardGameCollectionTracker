@@ -18,8 +18,9 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class EmailService {
 
-    private final JavaMailSender mailSender;
-    private final SpringTemplateEngine templateEngine;
+    private final JavaMailSender mailSender;  //given by spring to send mails using SMTP
+    private final SpringTemplateEngine templateEngine; //thymeleaf engine that processes HTML templates
+                                                       //find the template under resources -> templates
 
     @Async
     public void sendEmail(
@@ -45,7 +46,7 @@ public class EmailService {
         Map<String,Object> properties = new HashMap<>();
         properties.put("username", username);
         properties.put("confirmationUrl", confirmationUrl);
-        properties.put("activation_code", activationCode);
+        properties.put("activation_code", activationCode);  //make sure they are the exact same in the HTML file
 
         Context context = new Context();
         context.setVariables(properties);
