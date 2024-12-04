@@ -1,6 +1,8 @@
 package com.example.smallsocialnetwork.user;
 
 
+import com.example.smallsocialnetwork.boardGame.BoardGame;
+import com.example.smallsocialnetwork.history.BoardGameTransactionHistory;
 import com.example.smallsocialnetwork.role.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -19,12 +21,13 @@ import java.util.stream.Collectors;
 
 @Getter   //simply returns the field
 @Setter   //sets the field to a value
-@Builder  //check documentation
+@Builder  //check https://medium.com/@sridharnarayanmkr107/spring-boot-builder-d0edc5595cda for a good explanation
 @AllArgsConstructor //generates a constructor with 1 parameter for each field in your class
 @NoArgsConstructor  // generates a constructor with no parameters
 @Entity  //documentation at: https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta.persistence/jakarta/persistence/entity
 @Table(name = "users") //maps an entity class to a specific database table
-@EntityListeners(AuditingEntityListener.class)  //specifies callback listener classes for an entity.
+                       //DO NOT NAME THIS user, IT WILL GIVE YOU AN SQL SYNTAX ERROR
+@EntityListeners(AuditingEntityListener.class)  //specifies callback listener classes for an entity
 // These listener classes intercept and react to lifecycle events (such as persist, update, or remove)
 // associated with the entity.
 
@@ -43,9 +46,15 @@ public class User implements UserDetails, Principal {
     private boolean accountLocked;
     private boolean enabled;
 
+
     @ManyToMany(fetch= FetchType.EAGER) //when you fetch the user, do so eagerly
     private List<Role> roles;
 
+    @OneToMany(mappedBy="owner") //one user to many board games
+    private List<BoardGame> boardGames; //you can own War of the Ring, D&D, Root, etc.
+
+    @OneToMany(mappedBy = "user")
+    private List<BoardGameTransactionHistory> histories;
 
 
     @CreatedDate
