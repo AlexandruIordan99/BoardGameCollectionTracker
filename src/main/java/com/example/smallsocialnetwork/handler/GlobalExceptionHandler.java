@@ -9,9 +9,11 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import static com.example.smallsocialnetwork.handler.BussinessErrorCodes.*;
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
-import static org.springframework.http.HttpStatus.UNAUTHORIZED;
+import static org.springframework.http.HttpStatus.*;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -50,7 +52,7 @@ public class GlobalExceptionHandler {
                         ExceptionResponse.builder()
                                 .businessErrorCode(BAD_CREDENTIALS.getCode())
                                 .businessExceptionDescription(BAD_CREDENTIALS.getDescription())
-                                .error(exp.getMessage())
+                                .error(BAD_CREDENTIALS.getDescription())
                                 .build()
                 );
     }
@@ -68,11 +70,17 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ExceptionResponse> handleException(MethodArgumentNotValidException exp){
+        Set<String> errrors = new HashSet<>();
+        exp.getBindingResult().getAllErrors()
+                .forEach(error -> {
+                        var errorMessage = error.getDefaultMessage();
+                        errrors.add(errorMessage);
+                });
         return ResponseEntity
-                .status(INTERNAL_SERVER_ERROR)
+                .status(BAD_REQUEST)
                 .body(
                         ExceptionResponse.builder()
-                                .error(exp.getMessage())
+                                .validationErrors(errrors)
                                 .build()
                 );
     }
