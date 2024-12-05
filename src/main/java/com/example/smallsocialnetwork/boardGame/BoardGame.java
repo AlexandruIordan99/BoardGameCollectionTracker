@@ -10,6 +10,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import org.springframework.security.core.Transient;
+
 import java.util.List;
 
 @Getter
@@ -25,8 +27,8 @@ public class BoardGame extends BaseEntity {
     private String developer; //company or person who developed the game
     private String publisher;
     private String gameCover; //to be stored on server because it would take too much space on a database
-    private Boolean archived;
-    private Boolean shareable;
+    private boolean archived;
+    private boolean shareable;
 
     @ManyToOne //other way around compared to board games
     @JoinColumn(name="owner_id")
@@ -37,4 +39,21 @@ public class BoardGame extends BaseEntity {
 
     @OneToMany(mappedBy = "boardGame")
     private List<BoardGameTransactionHistory> histories;
+
+
+    public double getRating(){
+        if (reviews ==null || reviews.isEmpty()){
+            return 0.0;
+        }
+
+        var rating = this.reviews.stream()
+                .mapToDouble(Review:: getRating)
+                .average()
+                .orElse(0.0);
+
+        double roundedRating = Math.round(rating * 100.0)/100.0; //rounding to 2 decimal places to be pretty exact in
+                                                                 //rating aggregates
+        return roundedRating;
+    }
+
 }
