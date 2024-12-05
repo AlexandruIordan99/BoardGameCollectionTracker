@@ -2,15 +2,17 @@ package com.example.smallsocialnetwork.boardGame;
 
 
 import com.example.smallsocialnetwork.common.PageResponse;
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping("boardgames")
+@RequestMapping("boardgame")
 @RequiredArgsConstructor
 @Tag(name = "BoardGame")
 public class BoardGameController {
@@ -46,7 +48,7 @@ public class BoardGameController {
         return ResponseEntity.ok(service.findAllBoardGamesByOwner(page, size, connectedUser));
     }
 
-    @PatchMapping("/shareable/{boardgame-id")
+    @PatchMapping("/shareable/{boardgame-id}")
     public ResponseEntity<Integer> updateShareableStatus(
             @PathVariable("boardgame-id") Integer boardGameId,
             Authentication connectedUser
@@ -54,12 +56,22 @@ public class BoardGameController {
         return ResponseEntity.ok(service.updateShareableStatus(boardGameId,connectedUser));
     }
 
-    @PatchMapping("/archived/{boardgame-id")
+    @PatchMapping("/archived/{boardgame-id}")
     public ResponseEntity<Integer> updateArchivedStatus(
             @PathVariable("boardgame-id") Integer boardGameId,
             Authentication connectedUser
     ){
         return ResponseEntity.ok(service.updateShareableStatus(boardGameId,connectedUser));
+    }
+
+    @PatchMapping("/cover/{boardgame-id}", consumes = "multipart/form-data")
+    public ResponseEntity<?> uploadGameSplashArt(
+            @PathVariable("boardgame-id") Integer boardGameId,
+            @Parameter()
+            @RequestPart ("file") MultipartFile file,
+            Authentication connectedUser){
+        service.uploadGameSplashArt(file, connectedUser, boardGameId);
+        return ResponseEntity.accepted().build();
     }
 
 
