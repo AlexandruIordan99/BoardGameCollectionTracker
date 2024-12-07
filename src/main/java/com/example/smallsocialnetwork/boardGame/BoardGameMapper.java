@@ -1,6 +1,7 @@
 package com.example.smallsocialnetwork.boardGame;
 
 
+import com.example.smallsocialnetwork.file.FileUtils;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -33,7 +34,7 @@ public class BoardGameMapper {
                 .archived(boardGame.isArchived())
                 .shareable(boardGame.isShareable())
                 .owner(boardGame.getOwner().fullName())
-                //.coverImage() to do: later implementation
+                .coverImage(FileUtils.readFileFromLocation(boardGame.getGameSplashArt()))
                 .build();
     }
 }

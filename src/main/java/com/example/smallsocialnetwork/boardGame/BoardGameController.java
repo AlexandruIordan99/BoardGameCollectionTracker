@@ -64,13 +64,13 @@ public class BoardGameController {
         return ResponseEntity.ok(service.updateShareableStatus(boardGameId,connectedUser));
     }
 
-    @PatchMapping("/cover/{boardgame-id}", consumes = "multipart/form-data")
-    public ResponseEntity<?> uploadGameSplashArt(
+    @PatchMapping(value = "/cover/{boardgame-id}", consumes = "multipart/form-data")
+    public ResponseEntity<?> uploadBoardGameSplashArt(
             @PathVariable("boardgame-id") Integer boardGameId,
             @Parameter()
             @RequestPart ("file") MultipartFile file,
             Authentication connectedUser){
-        service.uploadGameSplashArt(file, connectedUser, boardGameId);
+        service.uploadBoardGameSplashArt(file, connectedUser, boardGameId);
         return ResponseEntity.accepted().build();
     }
 

@@ -1,5 +1,6 @@
 package com.example.smallsocialnetwork.boardGame;
 
+import com.example.smallsocialnetwork.file.FileStorageService;
 import com.example.smallsocialnetwork.common.PageResponse;
 import com.example.smallsocialnetwork.exceptions.OperationNotPermittedException;
 import com.example.smallsocialnetwork.user.User;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Objects;
@@ -21,11 +23,11 @@ public class BoardGameService {
 
     private final BoardGameMapper boardGameMapper;
     private final BoardGameRepository boardGameRepository;
-
+    private final FileStorageService fileStorageService;
 
     public Integer save(BoardGameRequest request, Authentication connectedUser) {
-        User user = ((User) connectedUser.getPrincipal());
-
+        User user = ((User) connectedUser.getPrincipal()); //cast to user because the .getPrincipal returns an object
+                                                           //then the result can call user specific methods, like getId
         BoardGame boardGame = boardGameMapper.toBoardGame(request);
 
         boardGame.setOwner(user); //the connected user is set as the owner
@@ -110,6 +112,17 @@ public class BoardGameService {
         boardGameRepository.save(boardGame);
         return boardGameId;
     }
+
+    public void uploadBoardGameSplashArt(MultipartFile file, Authentication connectedUser, Integer boardGameId){
+        BoardGame boardGame = boardGameRepository.findById(boardGameId)
+                .orElseThrow(() -> new EntityNotFoundException("No board game with the ID:: "+ boardGameId));
+        User user = ((User) connectedUser.getPrincipal());
+
+        var gameSplashArt = fileStorageService.saveFile(file, boardGame, user.getId());
+        boardGame.setGameSplashArt(gameSplashArt);
+        boardGameRepository.save(boardGame);
+    }
+
 
 
 }
