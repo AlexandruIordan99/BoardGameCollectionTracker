@@ -4,7 +4,11 @@ services:
     image: postgres
     environment:
       POSTGRES_USER: postgres
+<<<<<<< HEAD
       POSTGRES_PASSWORD: 1234
+=======
+      POSTGRES_PASSWORD: pass
+>>>>>>> 43a30417990021fec7638c30c131f03bdae8db20
       PGDATA: /var/lib/postgresql/data
       POSTGRES_DB: SmallSocialNetworkDB
     volumes:
