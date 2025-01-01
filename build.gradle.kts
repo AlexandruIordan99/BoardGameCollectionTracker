@@ -1,10 +1,6 @@
 plugins {
 	java
-<<<<<<< HEAD
 	id("org.springframework.boot") version "3.2.2" //swagger is incompatible with version 3.4.0
-=======
-	id("org.springframework.boot") version "3.4.0"
->>>>>>> 43a30417990021fec7638c30c131f03bdae8db20
 	id("io.spring.dependency-management") version "1.1.6"
 }
 
