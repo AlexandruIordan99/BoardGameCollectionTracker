@@ -20,6 +20,8 @@ import java.net.http.HttpHeaders;
 import java.util.Arrays;
 import java.util.Collections;
 
+import static org.springframework.http.HttpHeaders.*;
+
 @Configuration
 @RequiredArgsConstructor
 public class BeansConfig {
@@ -54,12 +56,13 @@ public class BeansConfig {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         final CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.setAllowedOrigins(Collections.singletonList("https://localhost:4200"));
+        config.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
         config.setAllowedHeaders(Arrays.asList(
-                "Origin",
-                "Content-Type",
-                "Accept",
-                "Authorization"
+                ORIGIN,
+                CONTENT_TYPE,
+                ACCEPT,
+                AUTHORIZATION
+
         ));
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH"));
         source.registerCorsConfiguration("/**", config);

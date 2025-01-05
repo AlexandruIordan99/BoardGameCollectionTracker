@@ -82,17 +82,17 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ExceptionResponse> handleException(MethodArgumentNotValidException exp){
-        Set<String> errrors = new HashSet<>();
+        Set<String> errors = new HashSet<>();
         exp.getBindingResult().getAllErrors()
                 .forEach(error -> {
                         var errorMessage = error.getDefaultMessage();
-                        errrors.add(errorMessage);
+                        errors.add(errorMessage);
                 });
         return ResponseEntity
                 .status(BAD_REQUEST)
                 .body(
                         ExceptionResponse.builder()
-                                .validationErrors(errrors)
+                                .validationErrors(errors)
                                 .build()
                 );
     }

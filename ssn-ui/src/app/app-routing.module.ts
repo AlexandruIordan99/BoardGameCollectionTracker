@@ -1,0 +1,34 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import {LoginComponent} from './pages/login/login.component';
+import {RegisterComponent} from './pages/register/register.component';
+import {ActivateAccountComponent} from './pages/activate-account/activate-account.component';
+
+const routes: Routes = [
+
+  {
+    path: 'login',
+    component: LoginComponent,
+
+  },
+
+  {
+    path: 'register',
+    component: RegisterComponent
+  },
+  {
+    path: 'activate-account',
+    component: ActivateAccountComponent
+  },
+  {
+    path: 'board-game',
+    loadChildren: () => import("./modules/board-game/board-game.module").then(m => m.BoardGameModule)
+  }
+
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
