@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {MainComponent} from '../../pages/main/main.component';
-import {BoardGameModule} from './board-game.module';
-import {BoardGameListComponent} from '../../pages/board-game-list/board-game-list.component';
+import {MainComponent} from './components/pages/main/main.component';
+import {BoardGameListComponent} from './components/pages/board-game-list/board-game-list.component';
 
 const routes: Routes = [
   {
@@ -10,7 +9,7 @@ const routes: Routes = [
     component: MainComponent,
     children:[
       {
-        path: 'board-game',
+        path: '',
         component: BoardGameListComponent
       }
     ]

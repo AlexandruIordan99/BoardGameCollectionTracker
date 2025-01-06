@@ -14,7 +14,7 @@ import { MenuComponent } from './components/menu/menu.component';
   ],
   imports: [
     CommonModule,
-    BoardGameRoutingModule
+    BoardGameRoutingModule,
   ]
 })
 export class BoardGameModule { }

@@ -4,7 +4,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/SmallSocialNetworkDB #create this db in postgres first
     username: postgres #replace with local username
-    password: 1234 #replace with local password
+    password: pass #replace with local password
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
