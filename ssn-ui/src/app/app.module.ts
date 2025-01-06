@@ -10,6 +10,8 @@ import {RegisterComponent} from './pages/register/register.component';
 import { ActivateAccountComponent } from './pages/activate-account/activate-account.component';
 import {CodeInputModule} from 'angular-code-input';
 import { MainComponent } from './pages/main/main.component';
+import {BoardGameModule} from './modules/board-game/board-game.module';
+import { BoardGameListComponent } from './pages/board-game-list/board-game-list.component';
 
 @NgModule({
   declarations: [
@@ -18,12 +20,14 @@ import { MainComponent } from './pages/main/main.component';
     RegisterComponent,
     ActivateAccountComponent,
     MainComponent,
+    BoardGameListComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     CodeInputModule,
+    BoardGameModule,
   ],
   providers: [provideHttpClient()],
   bootstrap: [AppComponent]
