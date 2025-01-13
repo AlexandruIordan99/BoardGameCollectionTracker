@@ -3,9 +3,14 @@ import { RouterModule, Routes } from '@angular/router';
 import {LoginComponent} from './pages/login/login.component';
 import {RegisterComponent} from './pages/register/register.component';
 import {ActivateAccountComponent} from './pages/activate-account/activate-account.component';
+import {authGuard} from './services/guard/auth.guard';
 
 const routes: Routes = [
-
+  {
+    path: '',
+    redirectTo: 'board-games',
+    pathMatch: 'full'
+  },
   {
     path: 'login',
     component: LoginComponent,
@@ -21,8 +26,10 @@ const routes: Routes = [
     component: ActivateAccountComponent
   },
   {
-    path: 'board-game',
-    loadChildren: () => import("./modules/board-game/board-game.module").then(m => m.BoardGameModule)
+    path: 'board-games',
+    loadChildren: () => import('./modules/board-game/board-game.module')
+      .then(m => m.BoardGameModule),
+    canActivate: [authGuard]
   }
 
 ];
