@@ -3,11 +3,24 @@ import { CommonModule } from '@angular/common';
 
 import { BoardGameRoutingModule } from './board-game-routing.module';
 import { MenuComponent } from './components/menu/menu.component';
+import { BoardGameCardComponent } from './components/board-game-card/board-game-card.component';
+import { RatingComponent } from './components/rating/rating.component';
+import { MyBoardGamesComponent } from './pages/my-board-games/my-board-games.component';
+import { ManageBoardGamesComponent } from './pages/manage-board-games/manage-board-games.component';
+import {BoardGameListComponent} from './pages/board-game-list/board-game-list.component';
+import {MainComponent} from './pages/main/main.component';
+import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
   declarations: [
-    MenuComponent
+    MainComponent,
+    MenuComponent,
+    BoardGameListComponent,
+    BoardGameCardComponent,
+    MyBoardGamesComponent,
+    RatingComponent,
+    ManageBoardGamesComponent
   ],
   exports: [
     MenuComponent
@@ -15,6 +28,8 @@ import { MenuComponent } from './components/menu/menu.component';
   imports: [
     CommonModule,
     BoardGameRoutingModule,
+    FormsModule,
   ]
 })
-export class BoardGameModule { }
+export class BoardGameModule {}
+

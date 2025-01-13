@@ -19,8 +19,7 @@ import { FindAllBoardGamesByOwner$Params } from '../fn/board-game/find-all-board
 import { findBoardGameById } from '../fn/board-game/find-board-game-by-id';
 import { FindBoardGameById$Params } from '../fn/board-game/find-board-game-by-id';
 import { PageResponseBoardGameResponse } from '../models/page-response-board-game-response';
-import { saveBoardGame } from '../fn/board-game/save-board-game';
-import { SaveBoardGame$Params } from '../fn/board-game/save-board-game';
+import {saveBoardGame, SaveBoardGame$Params} from '../fn/board-game/save-board-game';
 import { updateArchivedStatus } from '../fn/board-game/update-archived-status';
 import { UpdateArchivedStatus$Params } from '../fn/board-game/update-archived-status';
 import { updateShareableStatus } from '../fn/board-game/update-shareable-status';

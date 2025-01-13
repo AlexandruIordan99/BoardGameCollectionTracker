@@ -1,0 +1,43 @@
+<div class = "card border-2"
+     style = "width: 20rem;"
+     [class.border-success]="boardGame.shareable"
+     [class.border-warning]="boardGame.archived"
+>
+<img height = "200" [src] ="boardGameCoverImage" class ="card-img-top" alt="...">
+  <div class="card-body overflow-scroll">
+    <h5 class="card-title fs6 text-nowrap fw-bold mb-1">
+      <i clas="fa-solid fa-boardGame"></i> &nbsp;{{boardGame.title}}
+    </h5>
+
+    <h5 class="card-subtitle fs-6 text-secondary mb-1">
+      <i class="fa-solid fa-user-check"></i>&nbsp;{{ boardGame.developer }}</h5>
+
+      <h6 class="card-subtitle fs-6 text-secondary">
+        <i class="fas fa-user"></i>&nbsp;{{boardGame.owner }}
+      </h6>
+
+      <hr>
+      <p class="card-text">{{boardGame.description}}</p>
+  </div>
+  <div class="card-footer d-flex gap-2 justify-content-between align-items-center">
+    <div class="d-flex gap-2">
+      <app-rating [rating]="boardGame.rating || 0"></app-rating>
+      <span class="fw-bold" *ngIf="boardGame.rating|| 0 > 0">
+        {{boardGame.rating}}
+      </span>
+    </div>
+    <div class="d-flex gap-2" *ngIf="!manage">
+
+      <i (click)="onShowDetails()" class="fas fa-circle-info text-primary"></i>
+      <i (click)="onAddToWaitingList()" class="fas fa-heart text-danger"></i>
+
+    </div>
+    <div class="d-flex gap-2" *ngIf="manage">
+
+      <i (click)="onEdit()" class="fas fa-edit text-success"></i>
+      <i (click)="onShare()" class="fas fa-share-nodes text-primary"></i>
+      <i (click)="onArchive()" class="fas fa-archive text-danger"></i>
+
+    </div>
+  </div>
+</div>
