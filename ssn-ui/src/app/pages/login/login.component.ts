@@ -32,7 +32,7 @@ export class LoginComponent {
     }).subscribe({
       next: (res) => {
         this.tokenService.token = res.token as string;
-        this.router.navigate(['board-game']);
+        this.router.navigate(['board-games']);
       },
       error: (err) => {
         console.log(err);
