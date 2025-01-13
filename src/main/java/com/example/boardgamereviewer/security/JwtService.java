@@ -1,6 +1,5 @@
 package com.example.boardgamereviewer.security;
 
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -44,9 +43,9 @@ public class JwtService {
                 .getPayload();
     }
 
-    public String generateToken (UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails);
-    }
+//    public String generateToken (UserDetails userDetails) {
+//        return generateToken(new HashMap<>(), userDetails);
+//    }
 
     public String generateToken(Map<String, Object> claims, UserDetails userDetails){
         return buildToken(claims, userDetails, jwtExpiration);
