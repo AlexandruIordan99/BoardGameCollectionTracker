@@ -1,7 +1,7 @@
 package com.example.boardgamereviewer.common;
 
 //Can be extended by classes that need its fields, such as BoardGame and Review
-//DON'T REPEAT YOURSELF!
+//DRY principle
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

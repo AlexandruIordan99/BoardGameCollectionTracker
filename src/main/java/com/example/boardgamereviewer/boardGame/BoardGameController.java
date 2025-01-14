@@ -20,7 +20,7 @@ public class BoardGameController {
     private final BoardGameService service;
 
     @PostMapping
-    public ResponseEntity<Integer> saveBoardGame(  @Valid @RequestBody BoardGameRequest request,
+    public ResponseEntity<Integer> saveBoardGame(@Valid @RequestBody BoardGameRequest request,
                                                    Authentication connectedUser) {
         return ResponseEntity.ok(service.save(request, connectedUser));
     }
