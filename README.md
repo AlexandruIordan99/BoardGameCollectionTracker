@@ -1,1 +1,1 @@
-Personal project focused on the Spring and Angular frameworks. For now, users can register and activate their accounts. Working on a bug that prevents users from logging in.
+Personal project focused on the Spring and Angular frameworks. For now, users can register and activate their accounts. The backend work for adding/removing, rating and reviewing board games is complete. However, a routing bug in the Angular side of the project prevents users from crossing the login page.
