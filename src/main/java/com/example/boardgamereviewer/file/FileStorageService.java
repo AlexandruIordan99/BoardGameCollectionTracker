@@ -24,7 +24,7 @@ import static java.lang.System.currentTimeMillis;
 @Slf4j //logger
 public class FileStorageService {
 
-    @Value("${application.file.upload.photos-output-path}")
+    @Value("${application.file.upload.photos-output-path}") //connects to the photos upload path in application-dev.yml
     private String fileUploadPath;
 
     public String saveFile(@Nonnull MultipartFile sourceFile,

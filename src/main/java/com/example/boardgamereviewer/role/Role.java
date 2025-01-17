@@ -30,7 +30,7 @@ public class Role {
     @Column(unique = true)
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "roles") //many roles to many users/admins etc.
     @JsonIgnore //to ignore serialization for user
     private List<User> users;
 

@@ -8,7 +8,7 @@ import {ActivatedRoute, Router} from '@angular/router';
   selector: 'app-manage-board-games',
   standalone: false,
 
-  templateUrl: 'ssn-ui/src/app/modules/board-game/pages/manage-board-games/manage-board-games.component.html',
+  templateUrl: 'bgr-ui/src/app/modules/board-game/pages/manage-board-games/manage-board-games.component.html',
   styleUrl: './manage-board-games.component.scss'
 })
 export class ManageBoardGamesComponent {

@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-main',
   standalone: false,
 
-  templateUrl: 'ssn-ui/src/app/modules/board-game/pages/main/main.component.html',
+  templateUrl: 'bgr-ui/src/app/modules/board-game/pages/main/main.component.html',
   styleUrl: './main.component.scss'
 })
 export class MainComponent {

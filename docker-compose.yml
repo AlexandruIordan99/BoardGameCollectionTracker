@@ -1,6 +1,6 @@
 services:
   postgres:
-    container_name: postgres-sql-bsn
+    container_name: postgres-sql-bgr
     image: postgres
     environment:
       POSTGRES_USER: postgres
@@ -16,18 +16,19 @@ services:
     restart: unless-stopped
 
   mail-dev:
-    container_name: mail-dev-bsn
+    container_name: mail-dev-bgr
     image: maildev/maildev
     ports:
-      - 1080:1080
-      - 1025:1025
+      - 1080:1080  #for web service
+      - 1025:1025  #for SMTP (simple mai transfer protocol)
 
 
 networks:
   spring-demo:
-    driver: bridge
+    driver: bridge  #lets containers from the same network communicate, and isolates them from containers
+                    #from other networks
 
 
-volumes:
+volumes:   #used for persistent data, if the app fails, the data still exists
   postgres:
     driver: local

@@ -16,6 +16,8 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+
+
 public class Review extends BaseEntity {
 
     private Double rating; //grade 1 to 10
