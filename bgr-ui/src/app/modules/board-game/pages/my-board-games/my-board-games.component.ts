@@ -8,7 +8,7 @@ import {BoardGameResponse} from '../../../../services/models/board-game-response
   selector: 'app-my-board-games',
   standalone: false,
 
-  templateUrl: '../my-board-games.component.html',
+  templateUrl: './my-board-games.component.html',
   styleUrl: './my-board-games.component.scss'
 })
 export class MyBoardGamesComponent {

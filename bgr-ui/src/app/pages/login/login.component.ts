@@ -21,8 +21,6 @@ export class LoginComponent {
     private authService: AuthenticationControllerService,
     private tokenService: TokenService
   ) {
-
-
   }
 
   login() {
@@ -32,7 +30,7 @@ export class LoginComponent {
     }).subscribe({
       next: (res) => {
         this.tokenService.token = res.token as string;
-        this.router.navigate(['board-games']);
+        this.router.navigate(['board-games']);  //works without authguard
       },
       error: (err) => {
         console.log(err);

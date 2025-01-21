@@ -10,7 +10,6 @@ import {RegisterComponent} from './pages/register/register.component';
 import { ActivateAccountComponent } from './pages/activate-account/activate-account.component';
 import {CodeInputModule} from 'angular-code-input';
 import {HttpTokenInterceptor} from './services/interceptor/http-token.interceptor';
-import {BoardGameModule} from './modules/board-game/board-game.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +23,6 @@ import {BoardGameModule} from './modules/board-game/board-game.module';
     AppRoutingModule,
     FormsModule,
     CodeInputModule,
-    BoardGameModule,
   ],
   providers: [provideHttpClient(),
     {

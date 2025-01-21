@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {BoardGameService} from '../../../../services/services/board-game.service';
 import {Router} from '@angular/router';
-import {findAllBoardGames} from '../../../../services/fn/board-game/find-all-board-games';
 import {PageResponseBoardGameResponse} from '../../../../services/models/page-response-board-game-response';
+import {BoardGameResponse} from '../../../../services/models/board-game-response';
 
 @Component({
   selector: 'app-board-game-list',
@@ -70,4 +70,9 @@ export class BoardGameListComponent implements OnInit{
   get isLastPage(): boolean {
     return this.page==this.BoardGameResponse.totalPages as number -1;
   }
+
+  displayBoardGameDetails(boardGame: BoardGameResponse) {
+    this.router.navigate(['board-games', 'details',boardGame.id]);
+  }
 }
+

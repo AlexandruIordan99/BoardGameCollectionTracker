@@ -22,9 +22,6 @@ import {FormsModule} from '@angular/forms';
     RatingComponent,
     ManageBoardGamesComponent
   ],
-  exports: [
-    MenuComponent
-  ],
   imports: [
     CommonModule,
     BoardGameRoutingModule,
