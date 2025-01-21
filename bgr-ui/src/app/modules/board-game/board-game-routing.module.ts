@@ -5,6 +5,7 @@ import {BoardGameListComponent} from './pages/board-game-list/board-game-list.co
 import {MyBoardGamesComponent} from './pages/my-board-games/my-board-games.component';
 import {ManageBoardGamesComponent} from './pages/manage-board-games/manage-board-games.component';
 import {authGuard} from '../../services/guard/auth.guard';
+import {MenuComponent} from './components/menu/menu.component';
 
 const routes: Routes = [
   {
@@ -18,7 +19,12 @@ const routes: Routes = [
         canActivate:[authGuard]
       },
       {
-        path:'my-board-games',
+        path:'boardgames',
+        component: MenuComponent,
+        canActivate:[authGuard]
+      },
+      {
+        path:'my-boardgames',
         component: MyBoardGamesComponent,
         canActivate:[authGuard]
       },
