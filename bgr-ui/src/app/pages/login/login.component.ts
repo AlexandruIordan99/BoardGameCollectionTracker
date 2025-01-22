@@ -23,14 +23,14 @@ export class LoginComponent {
   ) {
   }
 
-  login() {
+  login(): void {
     this.errorMsg = [];
     this.authService.authenticate({
       body: this.authRequest
     }).subscribe({
       next: (res) => {
         this.tokenService.token = res.token as string;
-        this.router.navigate(['board-games']);  //works without authguard
+        this.router.navigate(['boardgames']);  //works without authguard
       },
       error: (err) => {
         console.log(err);
