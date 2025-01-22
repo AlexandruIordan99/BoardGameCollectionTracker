@@ -3,19 +3,20 @@ import { RouterModule, Routes } from '@angular/router';
 import {LoginComponent} from './pages/login/login.component';
 import {RegisterComponent} from './pages/register/register.component';
 import {ActivateAccountComponent} from './pages/activate-account/activate-account.component';
-import {BoardGameListComponent} from './modules/board-game/pages/board-game-list/board-game-list.component';
+
+//Time spent on routing and menu html display 11 hours 14:55 22.01.2025
+//Finally fixed
 
 const routes: Routes = [
   {
-    path: 'board-games',
-    component:BoardGameListComponent
+    path: '',
+    redirectTo: 'boardgames',
+    pathMatch: 'full'
   },
   {
     path: 'login',
-    component: LoginComponent,
-
+    component: LoginComponent
   },
-
   {
     path: 'register',
     component: RegisterComponent
@@ -25,12 +26,9 @@ const routes: Routes = [
     component: ActivateAccountComponent
   },
   {
-    path: 'board-games',
-    loadChildren: () =>
-      import('C:\\Users\\Jordan\\Projects\\BoardGameReviewWebsite\\bgr-ui\\src\\app\\modules\\board-game\\board-game.module')
-        .then(m => m.BoardGameModule)
-  } //board-games routing may or may not be somewhat bugged. Time spent on routing: 8 hours
-
+    path: 'boardgames',
+    loadChildren: () => import('./modules/board-game/board-game.module').then(m => m.BoardGameModule),
+  }
 ];
 
 @NgModule({
