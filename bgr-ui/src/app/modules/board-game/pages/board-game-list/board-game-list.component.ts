@@ -7,14 +7,13 @@ import {BoardGameResponse} from '../../../../services/models/board-game-response
 @Component({
   selector: 'app-board-game-list',
   standalone: false,
-
   templateUrl: './board-game-list.component.html',
   styleUrl: './board-game-list.component.scss'
 })
 export class BoardGameListComponent implements OnInit{
 
   page = 0;
-  size = 1;
+  size = 5;
   BoardGameResponse: PageResponseBoardGameResponse = {};
 
   constructor (
@@ -71,7 +70,7 @@ export class BoardGameListComponent implements OnInit{
     return this.page==this.BoardGameResponse.totalPages as number -1;
   }
 
-  displayBoardGameDetails(boardGame: BoardGameResponse) {
+  displayBoardGameDetails(boardGame: BoardGameResponse) : void {
     this.router.navigate(['board-games', 'details',boardGame.id]);
   }
 }
