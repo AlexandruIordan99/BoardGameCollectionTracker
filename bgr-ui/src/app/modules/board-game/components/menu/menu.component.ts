@@ -5,13 +5,13 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-menu',
   standalone:false,
   templateUrl: './menu.component.html',
-  styleUrl: './menu.component.scss',
+  styleUrls: ['./menu.component.scss'],
 })
 
 export class MenuComponent implements OnInit {
 
 
-  ngOnInit(): void {
+  ngOnInit() {
     const linkColor = document.querySelectorAll('.nav-link');
     linkColor.forEach(link => {
       if (window.location.href.endsWith(link.getAttribute('href') || '')) {

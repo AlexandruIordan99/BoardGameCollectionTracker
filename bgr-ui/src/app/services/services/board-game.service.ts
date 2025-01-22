@@ -181,7 +181,7 @@ export class BoardGameService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  findBoardGameById(params: FindBoardGameById$Params, context?: HttpContext): Observable<BoardGameResponse> {
+  findBoardGameById(params: { 'boardgame-id': any }, context?: HttpContext): Observable<BoardGameResponse> {
     return this.findBoardGameById$Response(params, context).pipe(
       map((r: StrictHttpResponse<BoardGameResponse>): BoardGameResponse => r.body)
     );

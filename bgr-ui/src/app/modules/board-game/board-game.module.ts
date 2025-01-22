@@ -10,6 +10,7 @@ import { ManageBoardGamesComponent } from './pages/manage-board-games/manage-boa
 import {BoardGameListComponent} from './pages/board-game-list/board-game-list.component';
 import {MainComponent} from './pages/main/main.component';
 import {FormsModule} from '@angular/forms';
+import { BoardGameDetailsComponent } from './pages/board-game-details/board-game-details.component';
 
 
 @NgModule({
@@ -20,7 +21,12 @@ import {FormsModule} from '@angular/forms';
     BoardGameCardComponent,
     MyBoardGamesComponent,
     RatingComponent,
-    ManageBoardGamesComponent
+    ManageBoardGamesComponent,
+    BoardGameDetailsComponent
+  ],
+  exports: [
+    MenuComponent,
+    MainComponent
   ],
   imports: [
     CommonModule,
