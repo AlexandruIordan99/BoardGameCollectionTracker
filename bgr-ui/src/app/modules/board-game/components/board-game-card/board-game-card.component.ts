@@ -6,7 +6,7 @@ import {BoardGameResponse} from '../../../../services/models/board-game-response
   standalone: false,
 
   templateUrl: './board-game-card.component.html',
-  styleUrl: './board-game-card.component.scss'
+  styleUrls: ['./board-game-card.component.scss']
 })
 
 export class BoardGameCardComponent {
