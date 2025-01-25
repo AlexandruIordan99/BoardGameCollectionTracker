@@ -1,6 +1,7 @@
 import {
   HttpEvent,
-  HttpHandler, HttpHeaders,
+  HttpHandler,
+  HttpHeaders,
   HttpInterceptor,
   HttpRequest
 } from '@angular/common/http';
@@ -20,14 +21,14 @@ export class HttpTokenInterceptor implements HttpInterceptor {
     if (token){
       const  authRequest = request.clone({
         headers: new HttpHeaders({
-          Authorization: 'Bearer' + token
+          Authorization: ('Bearer ' + token)
         })
       });
-      return  next.handle(authRequest);
+      return next.handle(authRequest);
     }
 
     return next.handle(request);
-}
+  }
 
 }
 

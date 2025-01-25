@@ -82,7 +82,7 @@ export class MyBoardGamesComponent {
   }
 
   editBoardGame(boardGame: BoardGameResponse) {
-    this.router.navigate(['boardgame', 'manage', boardGame.id])
+    this.router.navigate(['boardgames', 'manage', boardGame.id])
   }
 
   shareBoardGame(boardGame: BoardGameResponse) {

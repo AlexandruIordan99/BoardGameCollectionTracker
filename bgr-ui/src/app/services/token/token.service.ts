@@ -6,30 +6,29 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 })
 export class TokenService {
 
-  set token (token:string){
-    localStorage.setItem('token', token)
+  set token(token: string) {
+    localStorage.setItem('token', token);
   }
 
-  get token(){
+  get token() {
     return localStorage.getItem('token') as string;
   }
 
-  isTokenNotValid(){
-    return !this.isTokenValid();
-  }
-
-  private isTokenValid() {
+  isTokenNotValid() {
     const token = this.token;
-    if (!token){
-      return false;
+    if (!token) {
+      return true;
     }
-    const jwtHelper = new JwtHelperService(); //decode token
-    const isTokenExpired = jwtHelper.isTokenExpired();
-    if (isTokenExpired){
+    // decode the token
+    const jwtHelper = new JwtHelperService();
+    // check expiry date
+    const isTokenExpired = jwtHelper.isTokenExpired(token);
+    if (isTokenExpired) {
       localStorage.clear();
-      return false;
+      return true;
     }
-    return true;
-
+    return false;
   }
+
+
 }

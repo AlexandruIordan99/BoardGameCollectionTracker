@@ -17,9 +17,6 @@ public class BoardGameMapper {
                 .shareable(request.shareable())
                 .build();
 
-
-
-
     }
 
     public BoardGameResponse toBoardGameResponse(BoardGame boardGame) {

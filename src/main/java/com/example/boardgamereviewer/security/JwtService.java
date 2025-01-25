@@ -37,6 +37,9 @@ public class JwtService {
     private Claims extractAllClaims(String token){
         return Jwts
                 .parser()
+                 .clockSkewSeconds(60) //necessary to parse jwt from backend to frontend
+                                        //unclear exactly how the token expires, perhaps frontend interception
+                                        //takes just long enough to invalidate the login token
                 .verifyWith(getSignInKey())
                 .build()
                 .parseSignedClaims(token)
@@ -56,7 +59,7 @@ public class JwtService {
                 .stream()
                 .map(GrantedAuthority::getAuthority)
                 .toList();
-        return builder().
+        return Jwts.builder().
                 claims(extraClaims).
                 subject(userDetails.getUsername()).
                 issuedAt(new Date(System.currentTimeMillis())).

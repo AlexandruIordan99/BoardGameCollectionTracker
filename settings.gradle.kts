@@ -1,1 +1,1 @@
-rootProject.name = "SmallSocialNetwork"
+rootProject.name = "BoardGameReviewWebsite"

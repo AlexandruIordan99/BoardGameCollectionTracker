@@ -1,11 +1,11 @@
 <h3>Board game list</h3>
 <hr>
 <div class ="d-flex justify-content-start gap-2 flex-wrap">
-  <app-board-game-card
+  <app-boardgame-card
     *ngFor="let boardGame of BoardGameResponse.content"
     [boardGame]="boardGame" >
     {{boardGame.title}}
-  </app-board-game-card>
+  </app-boardgame-card>
 </div>
 
 <div class ="d-flex justify-content-center mt3">
@@ -20,17 +20,17 @@
       </li>
 
       <li class="page-item">
-        <a (click)="goToNextPage()" class = "page-link" href="javascript:void(0)" aria-label="Previous"
-           [class.disabled]="isLastPage"
+        <a (click)="goToPreviousPage()" class = "page-link" href="javascript:void(0)" aria-label="Previous"
+           [class.disabled]="isFirstPage"
         >
           <i class = "fa-solid fa-angles-left"></i>
         </a>
       </li>
 
       <li class="page-item">
-        <a (click)="goToPreviousPage()" class = "page-link" href="javascript:void(0)" aria-label="Previous"
+        <a (click)="goToNextPage()" class = "page-link" href="javascript:void(0)" aria-label="Previous"
         >
-          <i class = "fa-solid fa-angles-left"></i>
+          <i class = "fa-solid fa-angles-right"></i>
         </a>
       </li>
 
@@ -38,7 +38,7 @@
         <a (click)="goToLastPage()" class = "page-link" href="javascript:void(0)" aria-label="Previous"
            [class.disabled]="isLastPage"
         >
-          <i class = "fa-solid fa-angles-left"></i>
+          <i class = "fa-solid fa-angles-right"></i>
         </a>
       </li>
 

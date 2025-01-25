@@ -35,7 +35,8 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-security")
 
 	implementation("org.springframework.boot:spring-boot-starter-web")
-	compileOnly("org.projectlombok:lombok")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    compileOnly("org.projectlombok:lombok")
 	runtimeOnly("org.postgresql:postgresql")
 	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.6")
 	annotationProcessor("org.projectlombok:lombok")

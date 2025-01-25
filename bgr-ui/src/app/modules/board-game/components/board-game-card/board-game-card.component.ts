@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {BoardGameResponse} from '../../../../services/models/board-game-response';
 
 @Component({
-  selector: 'app-board-game-card',
+  selector: 'app-boardgame-card',
   standalone: false,
 
   templateUrl: './board-game-card.component.html',

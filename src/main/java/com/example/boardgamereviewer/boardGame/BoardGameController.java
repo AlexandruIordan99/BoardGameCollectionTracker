@@ -8,13 +8,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping("boardgame")
+@RequestMapping("/boardgame")
 @RequiredArgsConstructor
-@Tag(name = "BoardGame")
+//@Tag(name = "BoardGame")
 public class BoardGameController {
 
     private final BoardGameService service;
@@ -25,16 +24,16 @@ public class BoardGameController {
         return ResponseEntity.ok(service.save(request, connectedUser));
     }
 
-    @GetMapping("{boardgame-id}")
+    @GetMapping("/{boardgame-id}")
     public ResponseEntity<BoardGameResponse> findBoardGameById(@PathVariable ("boardgame-id")
                                                                    Integer boardGameId){
         return ResponseEntity.ok(service.findById(boardGameId));
     }
 
-    @GetMapping("")
+    @GetMapping
     public ResponseEntity<PageResponse<BoardGameResponse>> findAllBoardGames(
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
-            @RequestParam(name = "size", defaultValue = "0", required = false) int size,
+            @RequestParam(name = "size", defaultValue = "5", required = false) int size,
             Authentication connectedUser){
 
         return ResponseEntity.ok(service.findAllBoardGames(page, size, connectedUser));

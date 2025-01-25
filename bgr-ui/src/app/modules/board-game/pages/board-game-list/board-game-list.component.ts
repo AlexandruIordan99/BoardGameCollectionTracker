@@ -11,10 +11,11 @@ import {BoardGameResponse} from '../../../../services/models/board-game-response
   styleUrl: './board-game-list.component.scss'
 })
 export class BoardGameListComponent implements OnInit{
-
+  BoardGameResponse: PageResponseBoardGameResponse = {};
   page = 0;
   size = 5;
-  BoardGameResponse: PageResponseBoardGameResponse = {};
+  pages: any=[];
+
 
   constructor (
     private boardGameService: BoardGameService,
@@ -23,16 +24,21 @@ export class BoardGameListComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    console.log('BoardGameListComponent initialized');
     this.findAllBoardGames();
 }
 
   private findAllBoardGames(){
     this.boardGameService.findAllBoardGames({
       page: this.page,
-      size:this.size
+      size: this.size
     }).subscribe({
       next: (boardGames): void =>{
+        console.log('API Response:', boardGames);
         this.BoardGameResponse = boardGames;
+        this.pages = Array(this.BoardGameResponse.totalPages)
+          .fill(0)
+          .map((x, i) => i);
       },
       error:  (err) => {
         console.error("Error grabbing board games", err)
@@ -40,13 +46,15 @@ export class BoardGameListComponent implements OnInit{
     })
 }
 
-
   goToFirstPage() {
     this.page = 0;
     this.findAllBoardGames();
   }
 
   goToPreviousPage() {
+    if (this.page === 0){
+      return;
+    }
     this.page--;
     this.findAllBoardGames();
   }
@@ -66,12 +74,15 @@ export class BoardGameListComponent implements OnInit{
     this.findAllBoardGames();
   }
 
-  get isLastPage(): boolean {
-    return this.page==this.BoardGameResponse.totalPages as number -1;
+  get isLastPage(): boolean {//need more testing to see whether this gets capped or not
+    return this.page === this.BoardGameResponse.totalPages as number -1;
+  }
+  get isFirstPage(): boolean {
+    return this.page === 0;
   }
 
-  displayBoardGameDetails(boardGame: BoardGameResponse) : void {
-    this.router.navigate(['board-games', 'details',boardGame.id]);
+  displayBoardGameDetails(boardGame: BoardGameResponse) {
+    this.router.navigate(['boardgames', 'details', boardGame.id]);
   }
 }
 

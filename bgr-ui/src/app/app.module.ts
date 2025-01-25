@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {HTTP_INTERCEPTORS, HttpClient} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule, provideHttpClient} from '@angular/common/http';
 import { LoginComponent } from './pages/login/login.component';
 import {FormsModule} from '@angular/forms';
 import {RegisterComponent} from './pages/register/register.component';
@@ -11,6 +11,7 @@ import { ActivateAccountComponent } from './pages/activate-account/activate-acco
 import {CodeInputModule} from 'angular-code-input';
 import {HttpTokenInterceptor} from './services/interceptor/http-token.interceptor';
 import {BoardGameModule} from './modules/board-game/board-game.module';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import {BoardGameModule} from './modules/board-game/board-game.module';
     LoginComponent,
     RegisterComponent,
     ActivateAccountComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -25,6 +27,7 @@ import {BoardGameModule} from './modules/board-game/board-game.module';
     FormsModule,
     CodeInputModule,
     BoardGameModule,
+    HttpClientModule
   ],
   providers: [HttpClient,
     {

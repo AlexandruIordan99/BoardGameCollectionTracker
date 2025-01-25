@@ -9,7 +9,11 @@
       "url": "http://localhost:8088/api/v1",
       "description": "Generated server url"
     }
-  ],
+  ],"security": [
+  {
+  "bearerAuth": []
+}
+],
   "paths": {
     "/reviews": {
       "post": {
@@ -42,7 +46,7 @@
         }
       }
     },
-    "/boardgame": {
+    "/boardgames": {
       "get": {
         "tags": [
           "BoardGame"
