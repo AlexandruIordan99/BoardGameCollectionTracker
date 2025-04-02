@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/boardgame")
 @RequiredArgsConstructor
-@Tag(name = "BoardGame")
 public class BoardGameController {
 
     private final BoardGameService service;

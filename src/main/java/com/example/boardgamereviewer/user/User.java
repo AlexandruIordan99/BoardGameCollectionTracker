@@ -48,6 +48,11 @@ public class User implements UserDetails, Principal {
 
 
     @ManyToMany(fetch= FetchType.EAGER) //when you fetch the user, do so eagerly
+    @JoinTable(
+        name="users_roles",
+        joinColumns = @JoinColumn(name="roles_id"),
+        inverseJoinColumns = @JoinColumn(name="users_id")
+    )
     private List<Role> roles;
 
     @OneToMany(mappedBy="owner") //one user to many board games

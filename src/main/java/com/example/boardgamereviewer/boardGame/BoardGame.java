@@ -19,6 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name="board_game")
 public class BoardGame extends BaseEntity {
 
     private String title;

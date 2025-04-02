@@ -9,10 +9,12 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update  #also not good for production, change to validate then
-    show-sql: false
+    show-sql: true
     properties:
       hibernate:
         format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        show-sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
