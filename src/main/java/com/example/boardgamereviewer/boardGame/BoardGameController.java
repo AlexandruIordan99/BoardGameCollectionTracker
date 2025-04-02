@@ -3,6 +3,7 @@ package com.example.boardgamereviewer.boardGame;
 
 import com.example.boardgamereviewer.common.PageResponse;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/boardgame")
 @RequiredArgsConstructor
-//@Tag(name = "BoardGame")
+@Tag(name = "BoardGame")
 public class BoardGameController {
 
     private final BoardGameService service;

@@ -39,7 +39,6 @@ public class BoardGame extends BaseEntity {
     @OneToMany(mappedBy = "boardGame")
     private List<BoardGameTransactionHistory> histories;
 
-
     public double getRating(){
         if (reviews ==null || reviews.isEmpty()){
             return 0.0;

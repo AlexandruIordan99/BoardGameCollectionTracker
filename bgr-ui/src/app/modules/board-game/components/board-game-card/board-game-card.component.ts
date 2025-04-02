@@ -11,7 +11,7 @@ import {BoardGameResponse} from '../../../../services/models/board-game-response
 
 export class BoardGameCardComponent {
 
-  private _boardGame: BoardGameResponse ={};
+  private _boardGame: BoardGameResponse ={} as BoardGameResponse;
   private _boardGameCoverImage: string | undefined;
   private _manage = false;
 
@@ -45,6 +45,7 @@ export class BoardGameCardComponent {
   @Output() private edit: EventEmitter<BoardGameResponse> = new EventEmitter<BoardGameResponse>();
   @Output() private share: EventEmitter<BoardGameResponse> = new EventEmitter<BoardGameResponse>();
   @Output() private archive: EventEmitter<BoardGameResponse> = new EventEmitter<BoardGameResponse>();
+  @Output() details = new EventEmitter<BoardGameResponse>();
 
   onShowDetails() {
      this.showDetails.emit(this.boardGame);

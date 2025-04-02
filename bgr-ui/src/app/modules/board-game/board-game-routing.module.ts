@@ -5,25 +5,23 @@ import {MyBoardGamesComponent} from './pages/my-board-games/my-board-games.compo
 import {ManageBoardGamesComponent} from './pages/manage-board-games/manage-board-games.component';
 import {BoardGameDetailsComponent} from './pages/board-game-details/board-game-details.component';
 import {BoardGameListComponent} from './pages/board-game-list/board-game-list.component';
-import {authGuard} from '../../services/guard/auth.guard';
+import {BoardGameCardComponent} from './components/board-game-card/board-game-card.component';
 
 const routes: Routes = [
   {
     path: '',
     component: MainComponent,
-    canActivate: [authGuard],
     children: [
       {
         path: '',
         component: BoardGameListComponent,
-        canActivate: [authGuard],
       },
       {
         path: 'my-collection',
         component: MyBoardGamesComponent,
       },
       {
-        path: 'details/:bookId',
+        path: 'details/:boardGameId',
         component: BoardGameDetailsComponent,
       },
       {
@@ -31,7 +29,7 @@ const routes: Routes = [
         component: ManageBoardGamesComponent,
       },
       {
-        path: 'manage/:bookId',
+        path: 'manage/:boardGameId',
         component: ManageBoardGamesComponent
       }
     ]

@@ -5,37 +5,47 @@ import {PageResponseBoardGameResponse} from '../../../../services/models/page-re
 import {BoardGameResponse} from '../../../../services/models/board-game-response';
 
 @Component({
-  selector: 'app-board-game-list',
+  selector: 'app-boardgame-list',
   standalone: false,
   templateUrl: './board-game-list.component.html',
   styleUrl: './board-game-list.component.scss'
 })
+
 export class BoardGameListComponent implements OnInit{
-  BoardGameResponse: PageResponseBoardGameResponse = {};
+  BoardGameResponse: PageResponseBoardGameResponse = { };
   page = 0;
   size = 5;
   pages: any=[];
-
+  message = '';
+  level: 'success' | 'error'="success";
 
   constructor (
     private boardGameService: BoardGameService,
     private router: Router,
   ){
   }
-
   ngOnInit(): void {
-    console.log('BoardGameListComponent initialized');
     this.findAllBoardGames();
-}
+    console.log('BoardGameListComponent initialized');
+    console.log("BoardGameResponse:", this.BoardGameResponse);
+    console.log("BoardGameResponse.content length:", this.BoardGameResponse.content?.length);
+
+
+  }
 
   private findAllBoardGames(){
     this.boardGameService.findAllBoardGames({
       page: this.page,
       size: this.size
     }).subscribe({
-      next: (boardGames): void =>{
+      next: (boardGames) =>{
         console.log('API Response:', boardGames);
+        if (!boardGames || !boardGames.content) {
+          console.error("Invalid API response structure:", boardGames);
+        }
         this.BoardGameResponse = boardGames;
+        console.log("Updated BoardGameResponse:", this.BoardGameResponse);
+
         this.pages = Array(this.BoardGameResponse.totalPages)
           .fill(0)
           .map((x, i) => i);

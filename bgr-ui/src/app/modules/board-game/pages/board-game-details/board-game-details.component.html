@@ -5,13 +5,13 @@
       <img class="rounded-1" width="100%" height="100%" [src]=" 'data:image/jpg;base64,' + boardGame.coverImage || 'https://source.unsplash.com/user/c_v_r/1900x800'" alt="">
     </div>
     <div class="col-9">
-      <h2><i class="fa-solid fa-book"></i>&nbsp;{{ boardGame.title }}</h2>
+      <h2><i class="fa-solid fa-boardGame"></i>&nbsp;{{ boardGame.title }}</h2>
       <h4><i class="fa-solid fa-user-check"></i>&nbsp;{{ boardGame.developer }}</h4>
-      <h6 class="card-subtitle fs-6 text-secondary"><i class="fas fa-user"></i>&nbsp;{{ boardGame.owner }}</h6>
+      <h5 class="card-subtitle fs-6 text-secondary"><i class="fas fa-user"></i>&nbsp;{{ boardGame.owner }}</h5>
       <div class="d-flex gap-2">
         <app-rating [rating]="boardGame.rating || 0"></app-rating>
-        <span>{{ boardGame.rating}}</span>
-        ({{review.totalElements || 0}} rating)
+        <span>{{ boardGame.rating }}</span>
+        ({{review.totalElements || 0}} feedbacks)
       </div>
       <hr>
       <p>
@@ -21,12 +21,12 @@
   </div>
 </div>
 <div class="d-flex flex-column justify-content-end">
-  <div *ngFor="let review of review.content">
+  <div *ngFor="let feedback of review.content">
     <div class="d-flex gap-2">
-      <app-rating [rating]="boardGame.rating|| 0"></app-rating>
-      <strong>{{review.ownReview}}</strong>
+      <app-rating [rating]="feedback.rating || 0"></app-rating>
+      <strong>{{feedback.rating}}</strong>
     </div>
-    <p>{{review.comment}}</p>
+    <p>{{feedback.comment}}</p>
   </div>
 </div>
 <div class="d-flex justify-content-center mt-3">

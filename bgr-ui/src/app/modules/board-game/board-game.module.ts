@@ -30,7 +30,7 @@ import {HttpClient, provideHttpClient} from '@angular/common/http';
     CommonModule,
     BoardGameRoutingModule,
     FormsModule],
-
+  exports:[BoardGameCardComponent],
   providers:[HttpClient]
 })
 export class BoardGameModule {}
