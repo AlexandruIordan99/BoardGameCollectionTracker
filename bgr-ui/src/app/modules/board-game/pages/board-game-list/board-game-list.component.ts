@@ -30,7 +30,6 @@ export class BoardGameListComponent implements OnInit{
     console.log("BoardGameResponse:", this.BoardGameResponse);
     console.log("BoardGameResponse.content length:", this.BoardGameResponse.content?.length);
 
-
   }
 
   private findAllBoardGames(){
@@ -55,7 +54,6 @@ export class BoardGameListComponent implements OnInit{
       }
     })
 }
-
 
   goToFirstPage() {
     this.page = 0;

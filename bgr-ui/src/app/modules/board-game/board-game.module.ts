@@ -13,6 +13,7 @@ import { BoardGameDetailsComponent } from './pages/board-game-details/board-game
 import {BoardGameListComponent} from './pages/board-game-list/board-game-list.component';
 import {RouterModule} from '@angular/router';
 import {HttpClient, provideHttpClient} from '@angular/common/http';
+import { WishlistComponent } from './pages/wishlist/wishlist.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import {HttpClient, provideHttpClient} from '@angular/common/http';
     MyBoardGamesComponent,
     RatingComponent,
     ManageBoardGamesComponent,
-    BoardGameDetailsComponent
+    BoardGameDetailsComponent,
+    WishlistComponent
   ],
   imports: [
     CommonModule,
