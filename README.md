@@ -21,7 +21,7 @@ Node.js 11.0.0
 
 Clone the repository on your machine
 
-Create a new user in PgAdmin (username: developer, password: developer)
+Create a new user in PgAdmin (username: postgress, password: pass)
 
 Create a new Database in PgAdmin named SmallSocialNetworkDB 
 
