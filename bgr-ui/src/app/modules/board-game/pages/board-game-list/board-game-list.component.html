@@ -1,4 +1,4 @@
-<h3>Board Game list</h3>
+<h3>Board Games</h3>
 <hr>
 <p *ngIf="BoardGameResponse === null">Loading board games...</p>
 
@@ -7,6 +7,7 @@
     *ngFor="let boardGame of BoardGameResponse.content"
     [boardGame]="boardGame"
     (details)="displayBoardGameDetails($event)"
+    (addToWishlist)="($event)"
   ></app-boardgame-card>
 </div>
 <p *ngIf="!BoardGameResponse || !BoardGameResponse.content?.length">

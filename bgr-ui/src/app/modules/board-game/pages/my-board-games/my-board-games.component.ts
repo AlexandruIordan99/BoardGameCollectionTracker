@@ -14,7 +14,8 @@ import {BoardGameResponse} from '../../../../services/models/board-game-response
 export class MyBoardGamesComponent {
 
   page = 0;
-  size = 1;
+  size = 5;
+  pages: any=[]
   BoardGameResponse: PageResponseBoardGameResponse = {};
 
   constructor (
@@ -34,7 +35,12 @@ export class MyBoardGamesComponent {
     }).subscribe({
       next: (boardGames): void =>{
         this.BoardGameResponse = boardGames;
+
+        this.pages = Array(this.BoardGameResponse.totalPages)
+          .fill(0)
+          .map((x, i) => i);
       },
+
       error:  (err) => {
         console.error("Error grabbing board games", err)
       }

@@ -212,4 +212,8 @@ export class BoardGameService extends BaseService {
     );
   }
 
+
+  addBoardGameToWishlist(param: {'boardGame-id': number}) {
+
+  }
 }

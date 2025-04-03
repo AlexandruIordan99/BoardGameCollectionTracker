@@ -56,6 +56,7 @@ export class BoardGameListComponent implements OnInit{
     })
 }
 
+
   goToFirstPage() {
     this.page = 0;
     this.findAllBoardGames();

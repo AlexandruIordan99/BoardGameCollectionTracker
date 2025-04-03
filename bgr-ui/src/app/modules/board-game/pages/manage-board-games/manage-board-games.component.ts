@@ -60,7 +60,6 @@ export class ManageBoardGamesComponent {
       }
       reader.readAsDataURL(this.selectedBoardGameCoverImage);
 
-
     }
   }
 
@@ -74,7 +73,7 @@ export class ManageBoardGamesComponent {
           body: {file: this.selectedBoardGameCoverImage},
         }).subscribe({
           next: () =>{
-            this.router.navigate(['/boardgame/my-boardgames'])
+            this.router.navigate(['/boardgames/my-boardgames'])
           }
         })
     },

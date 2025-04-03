@@ -41,7 +41,7 @@ export class BoardGameCardComponent {
   }
 
   @Output() private showDetails: EventEmitter<BoardGameResponse> = new EventEmitter<BoardGameResponse>();
-  @Output() private addToWaitingList: EventEmitter<BoardGameResponse> = new EventEmitter<BoardGameResponse>();
+  @Output() private addToWishlist: EventEmitter<BoardGameResponse> = new EventEmitter<BoardGameResponse>();
   @Output() private edit: EventEmitter<BoardGameResponse> = new EventEmitter<BoardGameResponse>();
   @Output() private share: EventEmitter<BoardGameResponse> = new EventEmitter<BoardGameResponse>();
   @Output() private archive: EventEmitter<BoardGameResponse> = new EventEmitter<BoardGameResponse>();
@@ -51,8 +51,8 @@ export class BoardGameCardComponent {
      this.showDetails.emit(this.boardGame);
   }
 
-  onAddToWaitingList() {
-     this.addToWaitingList.emit(this.boardGame);
+  onAddToWishlist() {
+     this.addToWishlist.emit(this.boardGame);
   }
 
   onEdit() {

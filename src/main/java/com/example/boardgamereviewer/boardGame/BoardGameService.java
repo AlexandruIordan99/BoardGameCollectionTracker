@@ -4,6 +4,7 @@ import com.example.boardgamereviewer.file.FileStorageService;
 import com.example.boardgamereviewer.common.PageResponse;
 import com.example.boardgamereviewer.exceptions.OperationNotPermittedException;
 import com.example.boardgamereviewer.user.User;
+import io.jsonwebtoken.Jwts;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -86,6 +87,29 @@ public class BoardGameService {
         );
     }
 
+    public PageResponse<BoardGameResponse> findAllBoardGamesWishedForByOwner(int page, int size, Authentication connectedUser) {
+        User user = ((User) connectedUser.getPrincipal());
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
+        Page<BoardGame> boardGames = boardGameRepository.findAll(BoardGameSpecification.withOwnerId(user.getId()), pageable);
+
+        //same list declaration and return statement as above, the filtering is done on the first three lines
+        //the extension of JpaSpecification also makes the BoardGameSpecification work here
+
+        List<BoardGameResponse> boardGameResponse = boardGames.stream()
+          .map(boardGameMapper::toBoardGameResponse)
+          .toList();
+        return new PageResponse<>(
+          boardGameResponse,
+          boardGames.getNumber(),
+          boardGames.getSize(),
+          boardGames.getTotalElements(),
+          boardGames.getTotalPages(),
+          boardGames.isFirst(),
+          boardGames.isLast()
+        );
+    }
+
+
      public Integer updateShareableStatus(Integer boardGameId, Authentication connectedUser) {
         BoardGame boardGame = boardGameRepository.findById(boardGameId)
                 .orElseThrow(() -> new EntityNotFoundException("No board game with the ID:: "+ boardGameId));
@@ -118,14 +142,12 @@ public class BoardGameService {
 
     public void uploadBoardGameSplashArt(MultipartFile file, Authentication connectedUser, Integer boardGameId){
         BoardGame boardGame = boardGameRepository.findById(boardGameId)
-                .orElseThrow(() -> new EntityNotFoundException("No board game with the ID:: "+ boardGameId));
+                .orElseThrow(() -> new EntityNotFoundException("No board game with the ID: "+ boardGameId));
         User user = ((User) connectedUser.getPrincipal());
 
         var gameSplashArt = fileStorageService.saveFile(file, boardGame, user.getId());
         boardGame.setGameSplashArt(gameSplashArt);
         boardGameRepository.save(boardGame);
     }
-
-
 
 }
