@@ -13,6 +13,8 @@ Postman
 
 Docker
 
+MailDev
+
 IntelliJ IDEA (preferred)
 
 Node.js 11.0.0
@@ -24,6 +26,14 @@ Clone the repository on your machine
 Create a new user in PgAdmin (username: postgress, password: pass)
 
 Create a new Database in PgAdmin named SmallSocialNetworkDB 
+
+Install MailDev using the command prompt
+
+Create a new user on the website at localhost:/4200
+
+Then confirm the account using the maildev server at localhost:/1080
+
+You can now log in and test the functionality
 
 For any issues regarding this initial setup, please contact me
 
