@@ -10,7 +10,7 @@ Docker
 IntelliJ IDEA (preferred)
 Node.js 11.0.0
 
-How to run
+How to run \n
 Clone the repository on your machine
 Create a new user in PgAdmin (username: developer, password: developer)
 Create a new Database in PgAdmin named SmallSocialNetworkDB 
