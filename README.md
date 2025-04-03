@@ -4,18 +4,27 @@ The authentication and registration process also works on the frontend. The user
 **Prerequisites - Tools**
 
 Gradle - 8.5
+
 Java - 21
+
 PostgreSQL and PgAdmin - latest version
+
 Postman
+
 Docker
+
 IntelliJ IDEA (preferred)
+
 Node.js 11.0.0
 
 **How to run**
 
 Clone the repository on your machine
+
 Create a new user in PgAdmin (username: developer, password: developer)
+
 Create a new Database in PgAdmin named SmallSocialNetworkDB 
+
 For any issues regarding this initial setup, please contact me
 
 
