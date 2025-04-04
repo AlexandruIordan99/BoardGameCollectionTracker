@@ -5,6 +5,7 @@ import {MyBoardGamesComponent} from './pages/my-board-games/my-board-games.compo
 import {BoardGameDetailsComponent} from './pages/board-game-details/board-game-details.component';
 import {BoardGameListComponent} from './pages/board-game-list/board-game-list.component';
 import {WishlistComponent} from './pages/wishlist/wishlist.component';
+import {ManageBoardGamesComponent} from './pages/manage-board-games/manage-board-games.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
         path: 'details/:boardGameId',
         component: BoardGameDetailsComponent,
       },
+      {
+        path: 'manage',
+        component: ManageBoardGamesComponent
+      }
     ]
   }
 ];
