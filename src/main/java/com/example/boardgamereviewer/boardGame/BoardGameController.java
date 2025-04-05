@@ -3,7 +3,6 @@ package com.example.boardgamereviewer.boardGame;
 
 import com.example.boardgamereviewer.common.PageResponse;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -42,7 +41,7 @@ public class BoardGameController {
     @GetMapping("/owner")
     public ResponseEntity<PageResponse<BoardGameResponse>> findAllBoardGamesByOwner(
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
-            @RequestParam(name = "size", defaultValue = "0", required = false) int size,
+            @RequestParam(name = "size", defaultValue = "5", required = false) int size,
             Authentication connectedUser){
         return ResponseEntity.ok(service.findAllBoardGamesByOwner(page, size, connectedUser));
     }
