@@ -18,14 +18,16 @@ public class BoardGameController {
     private final BoardGameService service;
 
     @PostMapping
-    public ResponseEntity<Integer> saveBoardGame(@Valid @RequestBody BoardGameRequest request,
-                                                   Authentication connectedUser) {
+    public ResponseEntity<Integer> saveBoardGame(
+      @Valid @RequestBody BoardGameRequest request,
+      Authentication connectedUser) {
         return ResponseEntity.ok(service.save(request, connectedUser));
     }
 
     @GetMapping("/{boardgame-id}")
-    public ResponseEntity<BoardGameResponse> findBoardGameById(@PathVariable ("boardgame-id")
-                                                                   Integer boardGameId){
+    public ResponseEntity<BoardGameResponse> findBoardGameById(
+      @PathVariable ("boardgame-id")
+      Integer boardGameId){
         return ResponseEntity.ok(service.findById(boardGameId));
     }
 
@@ -59,7 +61,7 @@ public class BoardGameController {
             @PathVariable("boardgame-id") Integer boardGameId,
             Authentication connectedUser
     ){
-        return ResponseEntity.ok(service.updateShareableStatus(boardGameId,connectedUser));
+        return ResponseEntity.ok(service.updateArchivedStatus(boardGameId,connectedUser));
     }
 
     @PatchMapping(value = "/cover/{boardgame-id}", consumes = "multipart/form-data")
