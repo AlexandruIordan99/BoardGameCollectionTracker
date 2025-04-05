@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BoardGameRequest} from '../../../../services/models/board-game-request';
 import {BoardGameService} from '../../../../services/services/board-game.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -11,7 +11,8 @@ import {ActivatedRoute, Router} from '@angular/router';
   templateUrl: './manage-board-games.component.html',
   styleUrl: './manage-board-games.component.scss'
 })
-export class ManageBoardGamesComponent {
+export class ManageBoardGamesComponent implements OnInit {
+
 
   errorMsg: Array<string> = [];
   selectedPicture: string | undefined;
@@ -26,13 +27,13 @@ export class ManageBoardGamesComponent {
   ) {
   }
 
-  ngOnInit(): void{
+  ngOnInit(): void {
     const boardGameId = this.activatedRoute.snapshot.params['boardGameId'];
-    if(boardGameId){
+    if (boardGameId) {
       this.boardGameService.findBoardGameById({
-        "boardgame-id": boardGameId,
+        'boardgame-id': boardGameId
       }).subscribe({
-        next:(boardGame)=>{
+        next: (boardGame) => {
           this.BoardGameRequest = {
             id: boardGame.id,
             title: boardGame.title as string,
@@ -40,13 +41,34 @@ export class ManageBoardGamesComponent {
             publisher: boardGame.publisher as string,
             description: boardGame.description as string,
             shareable: boardGame.shareable
-          }
-          if(boardGame.coverImage){
-            this.selectedBoardGameCoverImage = 'data:image/jpg;base64,' + boardGame.coverImage;
-          }
-      }
-      })
+          };
+          this.selectedPicture='data:image/jpg;base64,' + boardGame.coverImage;
+        }
+      });
     }
+  }
+
+  saveBoardGame() {
+    this.boardGameService.saveBoardGame({
+      body: this.BoardGameRequest
+    }).subscribe({
+      next: (boardGameId) => {
+        this.boardGameService.uploadBoardGameSplashArt({
+          'boardgame-id': boardGameId,
+          body: {
+            file: this.selectedBoardGameCoverImage
+          }
+        }).subscribe({
+          next: () => {
+            this.router.navigate(['/my-collection']);
+          }
+        });
+      },
+      error: (err) => {
+        console.log(err.error);
+        this.errorMsg = err.error.validationErrors;
+      }
+    });
   }
 
 
@@ -59,28 +81,9 @@ export class ManageBoardGamesComponent {
         this.selectedPicture = reader.result as string;
       }
       reader.readAsDataURL(this.selectedBoardGameCoverImage);
-
-
     }
   }
 
-  saveBoardGame():void {
-    this.boardGameService.saveBoardGame({
-      body: this.BoardGameRequest
-    }).subscribe({
-      next:() =>{
-        this.boardGameService.uploadBoardGameSplashArt({
-          "boardgame-id": 0,
-          body: {file: this.selectedBoardGameCoverImage},
-        }).subscribe({
-          next: () =>{
-            this.router.navigate(['/my-collection'])
-          }
-        })
-    },
-      error:(err) =>{
-        this.errorMsg = err.error.validationErrors;
-      }
-    })
-  }
+
+
 }
