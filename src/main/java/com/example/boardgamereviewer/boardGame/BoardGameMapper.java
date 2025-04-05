@@ -12,6 +12,7 @@ public class BoardGameMapper {
                 .id(request.id())
                 .title(request.title())
                 .developer(request.developer())
+                .publisher(request.publisher()) //was previously missing
                 .description(request.description())
                 .archived(false) //the first time an entry is created it is not archived
                 .shareable(request.shareable())
