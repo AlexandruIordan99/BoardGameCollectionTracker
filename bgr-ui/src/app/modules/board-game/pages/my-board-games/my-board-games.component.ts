@@ -25,11 +25,11 @@ export class MyBoardGamesComponent {
   }
 
   ngOnInit(): void {
-    this.findAllBoardGames();
+    this.findAllBoardGamesByOwner();
   }
 
-  private findAllBoardGames(){
-    this.boardGameService.findAllBoardGames({
+  private findAllBoardGamesByOwner(){
+    this.boardGameService.findAllBoardGamesByOwner({
       page: this.page,
       size:this.size
     }).subscribe({
@@ -50,27 +50,27 @@ export class MyBoardGamesComponent {
 
   goToFirstPage() {
     this.page = 0;
-    this.findAllBoardGames();
+    this.findAllBoardGamesByOwner();
   }
 
   goToPreviousPage() {
     this.page--;
-    this.findAllBoardGames();
+    this.findAllBoardGamesByOwner();
   }
 
   goToPage(page: number) {
     this.page = page;
-    this.findAllBoardGames();
+    this.findAllBoardGamesByOwner();
   }
 
   goToNextPage() {
     this.page++;
-    this.findAllBoardGames();
+    this.findAllBoardGamesByOwner();
   }
 
   goToLastPage() {
     this.page = this.BoardGameResponse.totalPages as number -1;
-    this.findAllBoardGames();
+    this.findAllBoardGamesByOwner();
   }
 
   get isLastPage(): boolean {
