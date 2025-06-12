@@ -7,3 +7,13 @@ div{
 i{
   cursor: pointer;
 }
+.pagination-container{
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 0;
+  width: 100%;
+  max-width: 600px;
+  z-index: 1;
+}
