@@ -100,4 +100,31 @@ export class MyBoardGamesComponent {
       }
     })
   }
+
+  deleteBoardGame(boardGame: BoardGameResponse){
+    this.boardGameService.deleteBoardGame({
+      'boardgame-id': boardGame.id as number
+    }).subscribe({
+      next: () =>{
+        if (this.BoardGameResponse.content){
+          this.BoardGameResponse.content = this.BoardGameResponse.content.filter(
+            boardGame =>boardGame.id! ==boardGame.id
+          )
+        }
+        if (this.BoardGameResponse.content?.length === 0 && this.page > 0) {
+          this.page--;
+          this.findAllBoardGamesByOwner();
+        } else if (this.BoardGameResponse.content?.length === 0 && this.page === 0) {
+          this.findAllBoardGamesByOwner();
+        }
+      },
+      error: (err: any) =>{
+        console.error("Error deleting board game", err);
+        alert("Failed to delete board game. Please try again.")
+    }
+    })
+
+  }
+
+
 }
