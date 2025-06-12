@@ -3,7 +3,7 @@
   <hr>
  <div class = "alert alert-danger mt-2"
       role="alert"
-      *ngIf="errorMsg.length"
+      *ngIf="errorMsg?.length"
  >
   <p class="p-0 m-0"
   *ngFor="let msg of errorMsg"
@@ -56,7 +56,7 @@
             </div>
           </div>
           <div class="d-flex justify-content-end gap-2 col-12">
-            <button (click)="saveBoardGame()" routerLink="/my-collection" type="submit" class="btn btn-outline-primary">
+            <button (click)="saveBoardGame()"  class="btn btn-outline-primary">
               <i class="fas fa-save"></i>&nbsp;Save
             </button>
             <a routerLink="/my-collection" type="submit" class="btn btn-link btn text-danger">

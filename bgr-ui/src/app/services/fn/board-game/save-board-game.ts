@@ -30,4 +30,4 @@ export function saveBoardGame(http: HttpClient, rootUrl: string, params: SaveBoa
   );
 }
 
-saveBoardGame.PATH = '/boardgames';
+saveBoardGame.PATH = '/boardgame';

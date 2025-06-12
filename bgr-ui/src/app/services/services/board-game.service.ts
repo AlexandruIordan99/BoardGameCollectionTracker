@@ -37,7 +37,7 @@ export class BoardGameService extends BaseService {
   }
 
   /** Path part for operation `findAllBoardGames()` */
-  static readonly FindAllBoardGamesPath = '/boardgames';
+  static readonly FindAllBoardGamesPath = '/boardgame';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -62,7 +62,7 @@ export class BoardGameService extends BaseService {
   }
 
   /** Path part for operation `saveBoardGame()` */
-  static readonly SaveBoardGamePath = '/boardgames';
+  static readonly SaveBoardGamePath = '/boardgame';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
