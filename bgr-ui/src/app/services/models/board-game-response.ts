@@ -13,4 +13,5 @@ export interface BoardGameResponse {
   rating?: number;
   shareable?: boolean;
   title?: string;
+  wishlisted?: string;
 }
