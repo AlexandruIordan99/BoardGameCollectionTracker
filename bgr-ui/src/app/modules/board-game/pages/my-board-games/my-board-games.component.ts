@@ -28,13 +28,20 @@ export class MyBoardGamesComponent {
     this.findAllBoardGamesByOwner();
   }
 
-  private findAllBoardGamesByOwner(){
+
+private findAllBoardGamesByOwner(){
     this.boardGameService.findAllBoardGamesByOwner({
       page: this.page,
       size:this.size
     }).subscribe({
       next: (boardGames): void =>{
         this.BoardGameResponse = boardGames;
+
+        if (this.BoardGameResponse.content) {
+          this.BoardGameResponse.content = this.BoardGameResponse.content.filter(
+            boardGame => !boardGame.archived);
+        }  ///hides archived games
+
 
         this.pages = Array(this.BoardGameResponse.totalPages)
           .fill(0)
