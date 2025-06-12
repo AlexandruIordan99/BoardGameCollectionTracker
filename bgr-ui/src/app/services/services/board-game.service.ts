@@ -12,6 +12,8 @@ import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
 import { BoardGameResponse } from '../models/board-game-response';
+import { deleteBoardGame } from '../fn/board-game/delete-board-game';
+import { DeleteBoardGame$Params } from '../fn/board-game/delete-board-game';
 import { findAllBoardGames } from '../fn/board-game/find-all-board-games';
 import { FindAllBoardGames$Params } from '../fn/board-game/find-all-board-games';
 import { findAllBoardGamesByOwner } from '../fn/board-game/find-all-board-games-by-owner';
@@ -19,7 +21,8 @@ import { FindAllBoardGamesByOwner$Params } from '../fn/board-game/find-all-board
 import { findBoardGameById } from '../fn/board-game/find-board-game-by-id';
 import { FindBoardGameById$Params } from '../fn/board-game/find-board-game-by-id';
 import { PageResponseBoardGameResponse } from '../models/page-response-board-game-response';
-import {saveBoardGame, SaveBoardGame$Params} from '../fn/board-game/save-board-game';
+import { saveBoardGame } from '../fn/board-game/save-board-game';
+import { SaveBoardGame$Params } from '../fn/board-game/save-board-game';
 import { updateArchivedStatus } from '../fn/board-game/update-archived-status';
 import { UpdateArchivedStatus$Params } from '../fn/board-game/update-archived-status';
 import { updateShareableStatus } from '../fn/board-game/update-shareable-status';
@@ -34,7 +37,7 @@ export class BoardGameService extends BaseService {
   }
 
   /** Path part for operation `findAllBoardGames()` */
-  static readonly FindAllBoardGamesPath = '/boardgame';
+  static readonly FindAllBoardGamesPath = '/boardgames';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -59,7 +62,7 @@ export class BoardGameService extends BaseService {
   }
 
   /** Path part for operation `saveBoardGame()` */
-  static readonly SaveBoardGamePath = '/boardgame';
+  static readonly SaveBoardGamePath = '/boardgames';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -181,9 +184,34 @@ export class BoardGameService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  findBoardGameById(params: { 'boardgame-id': any }, context?: HttpContext): Observable<BoardGameResponse> {
+  findBoardGameById(params: FindBoardGameById$Params, context?: HttpContext): Observable<BoardGameResponse> {
     return this.findBoardGameById$Response(params, context).pipe(
       map((r: StrictHttpResponse<BoardGameResponse>): BoardGameResponse => r.body)
+    );
+  }
+
+  /** Path part for operation `deleteBoardGame()` */
+  static readonly DeleteBoardGamePath = '/boardgame/{boardgame-id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `deleteBoardGame()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteBoardGame$Response(params: DeleteBoardGame$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return deleteBoardGame(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `deleteBoardGame$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteBoardGame(params: DeleteBoardGame$Params, context?: HttpContext): Observable<void> {
+    return this.deleteBoardGame$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 
@@ -212,8 +240,4 @@ export class BoardGameService extends BaseService {
     );
   }
 
-
-  addBoardGameToWishlist(param: {'boardGame-id': number}) {
-
-  }
 }
