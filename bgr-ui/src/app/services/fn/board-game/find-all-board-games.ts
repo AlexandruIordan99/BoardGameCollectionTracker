@@ -32,4 +32,4 @@ export function findAllBoardGames(http: HttpClient, rootUrl: string, params?: Fi
   );
 }
 
-findAllBoardGames.PATH = '/boardgames';
+findAllBoardGames.PATH = '/boardgame';
