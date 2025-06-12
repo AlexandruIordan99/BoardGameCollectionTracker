@@ -60,7 +60,7 @@ export class ManageBoardGamesComponent implements OnInit {
           }
         }).subscribe({
           next: () => {
-            this.router.navigate(['/my-collection']);
+            this.router.navigate(['/boardgame'])
           }
         });
       },
@@ -70,7 +70,6 @@ export class ManageBoardGamesComponent implements OnInit {
       }
     });
   }
-
 
   onFileSelected(event: any) {
     this.selectedBoardGameCoverImage = event.target.files[0];
@@ -83,7 +82,5 @@ export class ManageBoardGamesComponent implements OnInit {
       reader.readAsDataURL(this.selectedBoardGameCoverImage);
     }
   }
-
-
 
 }
