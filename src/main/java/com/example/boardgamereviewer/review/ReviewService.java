@@ -37,7 +37,6 @@ public class ReviewService {
         }
 
         Review review = reviewMapper.toReview(request);
-        review.setUser(user);
         return reviewRepository.save(review).getId();
 
     }

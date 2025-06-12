@@ -3,7 +3,6 @@ package com.example.boardgamereviewer.user;
 
 import com.example.boardgamereviewer.boardGame.BoardGame;
 import com.example.boardgamereviewer.history.BoardGameTransactionHistory;
-import com.example.boardgamereviewer.review.Review;
 import com.example.boardgamereviewer.role.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -31,7 +30,6 @@ import java.util.stream.Collectors;
 @EntityListeners(AuditingEntityListener.class)  //specifies callback listener classes for an entity
 // These listener classes intercept and react to lifecycle events (such as persist, update, or remove)
 // associated with the entity.
-
 
 public class User implements UserDetails, Principal {
 
@@ -118,7 +116,4 @@ public class User implements UserDetails, Principal {
     public String getName() {
         return email;
     }
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Review> reviews;
 }
