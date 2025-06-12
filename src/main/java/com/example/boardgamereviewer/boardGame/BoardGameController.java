@@ -56,6 +56,15 @@ public class BoardGameController {
         return ResponseEntity.ok(service.updateShareableStatus(boardGameId,connectedUser));
     }
 
+    @PatchMapping("/description/{boardgame-id}")
+    public ResponseEntity<Integer> updateBoardGameDescription(
+      @PathVariable("boardgame-id") Integer boardGameId,
+      Authentication connectedUser,
+      @RequestBody String newDescription
+      ){
+        return ResponseEntity.ok(service.updateBoardGameDescription(boardGameId,connectedUser, newDescription));
+    }
+
     @PatchMapping("/wishlisted/{boardgame-id}")
     public ResponseEntity<Integer> updateWishlistedStatus(
       @PathVariable("boardgame-id") Integer boardGameId,

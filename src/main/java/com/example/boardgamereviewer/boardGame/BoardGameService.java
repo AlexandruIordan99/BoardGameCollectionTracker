@@ -161,6 +161,26 @@ public class BoardGameService {
         boardGameRepository.save(boardGame);
     }
 
+    public Integer updateBoardGameDescription(Integer boardGameId, Authentication connectedUser, String newDescription) {
+        BoardGame boardGame = boardGameRepository.findById(boardGameId)
+          .orElseThrow(() -> new EntityNotFoundException("No board game with the ID: "+ boardGameId));
+        User user = ((User) connectedUser.getPrincipal());
+
+        if(!Objects.equals(boardGame.getOwner().getId(), user.getId())){
+            throw new OperationNotPermittedException("Updating someone else's description is forbidden.");
+        }
+
+        boardGame.setDescription(newDescription);
+
+        if (newDescription == null || newDescription.trim().isEmpty()) {
+            throw new IllegalArgumentException("Description must not be empty.");
+        }
+
+        boardGameRepository.save(boardGame);
+        return boardGameId;
+    }
+
+
     public void deleteBoardGame(Integer boardGameId, Authentication connectedUser) {
         BoardGame boardGame = boardGameRepository.findById(boardGameId)
           .orElseThrow(() -> new EntityNotFoundException("No board game with the ID: "+ boardGameId));
