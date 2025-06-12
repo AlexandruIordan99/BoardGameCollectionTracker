@@ -45,6 +45,7 @@ export class BoardGameCardComponent {
   @Output() private edit: EventEmitter<BoardGameResponse> = new EventEmitter<BoardGameResponse>();
   @Output() private share: EventEmitter<BoardGameResponse> = new EventEmitter<BoardGameResponse>();
   @Output() private archive: EventEmitter<BoardGameResponse> = new EventEmitter<BoardGameResponse>();
+  @Output() private delete: EventEmitter<BoardGameResponse> = new EventEmitter<BoardGameResponse>();
   @Output() details = new EventEmitter<BoardGameResponse>();
 
   onShowDetails() {
@@ -68,5 +69,8 @@ export class BoardGameCardComponent {
     this.archive.emit(this.boardGame);
   }
 
+  onDelete(){
+    this.delete.emit(this.boardGame)
+  }
 
 }
