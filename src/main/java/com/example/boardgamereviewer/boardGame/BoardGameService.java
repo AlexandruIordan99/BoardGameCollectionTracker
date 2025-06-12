@@ -4,7 +4,6 @@ import com.example.boardgamereviewer.file.FileStorageService;
 import com.example.boardgamereviewer.common.PageResponse;
 import com.example.boardgamereviewer.exceptions.OperationNotPermittedException;
 import com.example.boardgamereviewer.user.User;
-import io.jsonwebtoken.Jwts;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -92,9 +91,6 @@ public class BoardGameService {
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
         Page<BoardGame> boardGames = boardGameRepository.findAll(BoardGameSpecification.withOwnerId(user.getId()), pageable);
 
-        //same list declaration and return statement as above, the filtering is done on the first three lines
-        //the extension of JpaSpecification also makes the BoardGameSpecification work here
-
         List<BoardGameResponse> boardGameResponse = boardGames.stream()
           .map(boardGameMapper::toBoardGameResponse)
           .toList();
@@ -115,9 +111,10 @@ public class BoardGameService {
                 .orElseThrow(() -> new EntityNotFoundException("No board game with the ID:: "+ boardGameId));
         User user = ((User) connectedUser.getPrincipal());
 
-        if(!Objects.equals(boardGame.getOwner().getBoardGames(), user.getId())){
+        if(!Objects.equals(boardGame.getOwner().getId(), user.getId())){
             //throw exception
-            throw new OperationNotPermittedException("Updating the board game shareable status is forbidden.");
+            throw new OperationNotPermittedException("Updating the shareable status of a board game" +
+              "you do not own is forbidden.");
         }
 
         boardGame.setShareable(!boardGame.isShareable());
@@ -130,7 +127,7 @@ public class BoardGameService {
                 .orElseThrow(() -> new EntityNotFoundException("No board game with the ID:: "+ boardGameId));
         User user = ((User) connectedUser.getPrincipal());
 
-        if(!Objects.equals(boardGame.getOwner().getBoardGames(), user.getId())){
+        if(!Objects.equals(boardGame.getOwner().getId(), user.getId())){
             //throw exception
             throw new OperationNotPermittedException("Updating someone else's archived status is forbidden.");
         }
@@ -148,6 +145,18 @@ public class BoardGameService {
         var gameSplashArt = fileStorageService.saveFile(file, boardGame, user.getId());
         boardGame.setGameSplashArt(gameSplashArt);
         boardGameRepository.save(boardGame);
+    }
+
+    public void deleteBoardGame(Integer boardGameId, Authentication connectedUser) {
+        BoardGame boardGame = boardGameRepository.findById(boardGameId)
+          .orElseThrow(() -> new EntityNotFoundException("No board game with the ID: "+ boardGameId));
+        User user = ((User) connectedUser.getPrincipal());
+
+        if(!Objects.equals(boardGame.getOwner().getId(), user.getId())){
+            throw new OperationNotPermittedException("Deleting a board game you do not own is forbidden.");
+        }
+
+        boardGameRepository.delete(boardGame);
     }
 
 }

@@ -74,5 +74,13 @@ public class BoardGameController {
         return ResponseEntity.accepted().build();
     }
 
+    @DeleteMapping("/{boardgame-id}")
+    public ResponseEntity<Void> deleteBoardGame(
+      @PathVariable("boardgame-id") Integer boardGameId,
+      Authentication connectedUser){
+        service.deleteBoardGame(boardGameId, connectedUser);
+        return ResponseEntity.noContent().build();
+    }
+
 
 }
