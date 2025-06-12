@@ -14,6 +14,7 @@ public interface BoardGameRepository extends JpaRepository<BoardGame, Integer>, 
             FROM BoardGame boardGame
             WHERE boardGame.archived = false
             AND boardGame.shareable = true
+            AND boardGame.wishlisted = false
             """) //we display all board games that are not archived, that the user owns and that the user
                 //does not own
                 //the owned board games are handled by the findAllBoardGamesByOwner method

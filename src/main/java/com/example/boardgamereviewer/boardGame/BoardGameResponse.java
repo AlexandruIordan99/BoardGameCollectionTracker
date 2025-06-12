@@ -24,5 +24,6 @@ public class BoardGameResponse {
     private double rating;
     private boolean archived;
     private boolean shareable;
+    private boolean wishlisted;
 
 }

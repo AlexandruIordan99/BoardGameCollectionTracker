@@ -29,6 +29,7 @@ public class BoardGame extends BaseEntity {
     private String gameSplashArt; //to be stored on server because it would take too much space on a database
     private boolean archived;
     private boolean shareable;
+    private boolean wishlisted;
 
     @ManyToOne //other way around compared to board games
     @JoinColumn(name="owner_id")

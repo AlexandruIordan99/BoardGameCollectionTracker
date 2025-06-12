@@ -89,7 +89,8 @@ public class BoardGameService {
     public PageResponse<BoardGameResponse> findAllBoardGamesWishedForByOwner(int page, int size, Authentication connectedUser) {
         User user = ((User) connectedUser.getPrincipal());
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
-        Page<BoardGame> boardGames = boardGameRepository.findAll(BoardGameSpecification.withOwnerId(user.getId()), pageable);
+        Page<BoardGame> boardGames = boardGameRepository.findAll(BoardGameSpecification
+          .withOwnerId(user.getId()), pageable);
 
         List<BoardGameResponse> boardGameResponse = boardGames.stream()
           .map(boardGameMapper::toBoardGameResponse)
@@ -132,6 +133,20 @@ public class BoardGameService {
         }
 
         boardGame.setArchived(!boardGame.isArchived());
+        boardGameRepository.save(boardGame);
+        return boardGameId;
+    }
+
+    public Integer updateWishlistedStatus(Integer boardGameId, Authentication connectedUser) {
+        BoardGame boardGame = boardGameRepository.findById(boardGameId)
+          .orElseThrow(() -> new EntityNotFoundException("No board game with the ID:: "+ boardGameId));
+        User user = ((User) connectedUser.getPrincipal());
+
+        if(!Objects.equals(boardGame.getOwner().getId(), user.getId())){
+            throw new OperationNotPermittedException("Updating someone else's wishlist status is forbidden.");
+        }
+
+        boardGame.setWishlisted(!boardGame.isWishlisted());
         boardGameRepository.save(boardGame);
         return boardGameId;
     }

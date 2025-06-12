@@ -16,6 +16,7 @@ public class BoardGameMapper {
                 .description(request.description())
                 .archived(false) //the first time an entry is created it is not archived
                 .shareable(request.shareable())
+                .wishlisted(false) //same for wishlisting
                 .build();
 
     }
@@ -30,6 +31,7 @@ public class BoardGameMapper {
                 .rating(boardGame.getRating())
                 .archived(boardGame.isArchived())
                 .shareable(boardGame.isShareable())
+                .wishlisted(boardGame.isWishlisted())
                 .owner(boardGame.getOwner().fullName())
                 .coverImage(FileUtils.readFileFromLocation(boardGame.getGameSplashArt()))
                 .build();
