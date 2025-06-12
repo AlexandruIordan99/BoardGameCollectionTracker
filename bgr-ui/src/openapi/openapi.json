@@ -9,11 +9,12 @@
       "url": "http://localhost:8088/api/v1",
       "description": "Generated server url"
     }
-  ],"security": [
-  {
-  "bearerAuth": []
-}
-],
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
   "paths": {
     "/reviews": {
       "post": {
@@ -290,6 +291,65 @@
         }
       }
     },
+    "/boardgame/{boardgame-id}": {
+      "get": {
+        "tags": [
+          "BoardGame"
+        ],
+        "operationId": "findBoardGameById",
+        "parameters": [
+          {
+            "name": "boardgame-id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BoardGameResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "BoardGame"
+        ],
+        "operationId": "deleteBoardGame",
+        "parameters": [
+          {
+            "name": "boardgame-id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Board game deleted successfully"
+          },
+          "403": {
+            "description": "Forbidden - You don't own this board game"
+          },
+          "404": {
+            "description": "Board game not found"
+          }
+        }
+      }
+    },
     "/reviews/boardgame/{boardgame-id}": {
       "get": {
         "tags": [
@@ -334,37 +394,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/PageResponseReviewResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/boardgame/{boardgame-id}": {
-      "get": {
-        "tags": [
-          "BoardGame"
-        ],
-        "operationId": "findBoardGameById",
-        "parameters": [
-          {
-            "name": "boardgame-id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BoardGameResponse"
                 }
               }
             }
@@ -663,6 +692,13 @@
             "type": "boolean"
           }
         }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }
