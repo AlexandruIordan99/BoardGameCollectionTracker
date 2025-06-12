@@ -128,7 +128,6 @@ public class BoardGameService {
         User user = ((User) connectedUser.getPrincipal());
 
         if(!Objects.equals(boardGame.getOwner().getId(), user.getId())){
-            //throw exception
             throw new OperationNotPermittedException("Updating someone else's archived status is forbidden.");
         }
 
