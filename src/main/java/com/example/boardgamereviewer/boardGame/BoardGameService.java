@@ -45,7 +45,7 @@ public class BoardGameService {
 
     public PageResponse<BoardGameResponse> findAllBoardGames(int page, int size, Authentication connectedUser) {
         if  (page <0){
-            page = 0; //ensures you can't go to page -1 and get a 500 error, sehr toll!
+            page = 0; //ensures you can't go to page -1 and get a 500 error
         }
         User user =(User) connectedUser.getPrincipal();
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());  //createdDate from BaseEntity
