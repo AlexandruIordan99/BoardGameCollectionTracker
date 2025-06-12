@@ -41,24 +41,19 @@ export class BoardGameCardComponent {
   }
 
   @Output() private showDetails: EventEmitter<BoardGameResponse> = new EventEmitter<BoardGameResponse>();
-  @Output() private addToWishlist: EventEmitter<BoardGameResponse> = new EventEmitter<BoardGameResponse>();
   @Output() private edit: EventEmitter<BoardGameResponse> = new EventEmitter<BoardGameResponse>();
   @Output() private share: EventEmitter<BoardGameResponse> = new EventEmitter<BoardGameResponse>();
   @Output() private archive: EventEmitter<BoardGameResponse> = new EventEmitter<BoardGameResponse>();
   @Output() private delete: EventEmitter<BoardGameResponse> = new EventEmitter<BoardGameResponse>();
+  @Output() private wishlist: EventEmitter<BoardGameResponse> = new EventEmitter<BoardGameResponse>();
   @Output() details = new EventEmitter<BoardGameResponse>();
 
   onShowDetails() {
      this.showDetails.emit(this.boardGame);
   }
 
-  onAddToWishlist() {
-     this.addToWishlist.emit(this.boardGame);
-  }
-
   onEdit() {
     this.edit.emit(this.boardGame);
-
   }
 
   onShare() {
@@ -71,6 +66,10 @@ export class BoardGameCardComponent {
 
   onDelete(){
     this.delete.emit(this.boardGame)
+  }
+
+  onWishlist(){
+    this.wishlist.emit(this.boardGame);
   }
 
 }
