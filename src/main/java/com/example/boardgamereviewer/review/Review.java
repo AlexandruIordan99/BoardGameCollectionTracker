@@ -2,6 +2,7 @@ package com.example.boardgamereviewer.review;
 
 import com.example.boardgamereviewer.boardGame.BoardGame;
 import com.example.boardgamereviewer.common.BaseEntity;
+import com.example.boardgamereviewer.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,7 +18,6 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Entity
 
-
 public class Review extends BaseEntity {
 
     private Double rating; //grade 1 to 10
@@ -27,5 +27,9 @@ public class Review extends BaseEntity {
     @ManyToOne
     @JoinColumn(name="boardGame_id")
     private BoardGame boardGame;
+
+    @ManyToOne
+    @JoinColumn(name= "created_by")
+    private User user;
 
 }
