@@ -51,9 +51,7 @@ public class BoardGame extends BaseEntity {
                 .average()
                 .orElse(0.0);
 
-        double roundedRating = Math.round(rating * 100.0)/100.0; //rounding to 2 decimal places to be pretty exact in
-                                                                 //rating aggregates
-        return roundedRating;
+      return Math.round(rating * 100.0)/100.0;
     }
 
 }
