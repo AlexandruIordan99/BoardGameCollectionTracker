@@ -31,14 +31,30 @@ public class ReviewService {
                 .orElseThrow(() -> new EntityNotFoundException("No board game with the ID:: "+ request.boardGameId()));
         User user = ((User) connectedUser.getPrincipal());
 
-        if(!Objects.equals(boardGame.getOwner().getBoardGames(), user.getId())){
-            //throw exception
+        if(!Objects.equals(boardGame.getOwner().getId(), user.getId())){
                 throw new OperationNotPermittedException("You cannot review an archived game.");
         }
 
         Review review = reviewMapper.toReview(request);
         return reviewRepository.save(review).getId();
 
+    }
+
+    public Integer updateReviewRating(Integer boardGameId, double rating, Authentication connectedUser) {
+        BoardGame boardGame = boardGameRepository.findById(boardGameId)
+          .orElseThrow(() -> new EntityNotFoundException("No board game with the ID:: "+ boardGameId));
+        User user = ((User) connectedUser.getPrincipal());
+
+        if(!Objects.equals(boardGame.getOwner().getId(), user.getId())){
+            throw new OperationNotPermittedException("You cannot review an archived game.");
+        }
+
+        Review review = reviewRepository.findByBoardGameIdAndUserId(boardGameId, user.getId())
+          .orElseThrow(() -> new EntityNotFoundException("Review not found for this user and board game."));
+
+        review.setRating(rating);
+
+        return reviewRepository.save(review).getId();
     }
 
     public PageResponse<ReviewResponse> findAllReviews(Integer boardGameId,

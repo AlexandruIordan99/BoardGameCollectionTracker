@@ -19,7 +19,7 @@ import lombok.experimental.SuperBuilder;
 
 public class Review extends BaseEntity {
 
-    private Double rating; //grade 1 to 10
+    private Double rating;
 
     private String comment; //the content of the review
 

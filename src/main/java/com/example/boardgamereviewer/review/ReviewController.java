@@ -2,6 +2,7 @@ package com.example.boardgamereviewer.review;
 
 
 import com.example.boardgamereviewer.common.PageResponse;
+import com.example.boardgamereviewer.review.updateRating.UpdateRatingRequest;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -34,4 +35,11 @@ public class ReviewController {
         return ResponseEntity.ok(service.findAllReviews(boardGameId,page, size, connectedUser));
     }
 
+    @PatchMapping("/boardgame/{boardgame-id}")
+    public ResponseEntity<Integer> updateReviewRating(
+      @PathVariable("boardgame-id") Integer boardGameId,
+      @RequestBody UpdateRatingRequest request,
+      Authentication connectedUser) {
+        return  ResponseEntity.ok(service.updateReviewRating(boardGameId, request.getRating(), connectedUser));
+    }
 }

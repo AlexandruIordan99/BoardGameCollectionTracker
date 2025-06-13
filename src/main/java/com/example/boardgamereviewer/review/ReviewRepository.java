@@ -5,6 +5,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.Optional;
+
 public interface ReviewRepository extends JpaRepository<Review, Integer> {
 
     @Query("""
@@ -14,5 +16,13 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
    """)
 
     Page<Review> findAllByBoardGameId(Integer boardGameId, Pageable pageable);
+
+    @Query("""
+    SELECT review
+    FROM Review review
+    WHERE review.boardGame.id = :boardGameId AND review.createdBy = :userId
+""")
+    Optional<Review> findByBoardGameIdAndUserId(Integer boardGameId, Integer userId);
+
 
 }
