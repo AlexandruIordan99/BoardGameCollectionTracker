@@ -24,17 +24,21 @@ export class WishlistComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.findAllBoardGames();
+    this.findAllWishlistedBoardGames();
   }
 
-  private findAllBoardGames(){
+  private findAllWishlistedBoardGames(){
     this.boardGameService.findAllBoardGames({
       page: this.page,
-      size:this.size
+      size:this.size,
     }).subscribe({
       next: (boardGames): void =>{
-        this.BoardGameResponse = boardGames;
+        if(boardGames.content){
+          boardGames.content = boardGames.content.filter(boardGame =>
+          boardGame.wishlisted === true);
+        }
 
+        this.BoardGameResponse = boardGames;
         this.pages = Array(this.BoardGameResponse.totalPages)
           .fill(0)
           .map((x, i) => i);
@@ -49,27 +53,27 @@ export class WishlistComponent implements OnInit{
 
   goToFirstPage() {
     this.page = 0;
-    this.findAllBoardGames();
+    this.findAllWishlistedBoardGames();
   }
 
   goToPreviousPage() {
     this.page--;
-    this.findAllBoardGames();
+    this.findAllWishlistedBoardGames();
   }
 
   goToPage(page: number) {
     this.page = page;
-    this.findAllBoardGames();
+    this.findAllWishlistedBoardGames();
   }
 
   goToNextPage() {
     this.page++;
-    this.findAllBoardGames();
+    this.findAllWishlistedBoardGames();
   }
 
   goToLastPage() {
     this.page = this.BoardGameResponse.totalPages as number -1;
-    this.findAllBoardGames();
+    this.findAllWishlistedBoardGames();
   }
 
   get isLastPage(): boolean {

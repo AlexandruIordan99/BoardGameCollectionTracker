@@ -18,4 +18,7 @@ public interface BoardGameRepository extends JpaRepository<BoardGame, Integer>, 
 
     Page<BoardGame> findAllDisplayableBoardGames(Pageable pageable, Integer ownerId);
 
+    Page<BoardGame> findByWishlistedTrueAndOwnerId(Pageable pageable, Integer ownerId);
+
+
 }
