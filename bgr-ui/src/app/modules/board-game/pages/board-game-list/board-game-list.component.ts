@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {BoardGameService} from '../../../../services/services/board-game.service';
+import {BoardGameControllerService} from '../../../../services/services/board-game-controller.service';
 import {Router} from '@angular/router';
 import {PageResponseBoardGameResponse} from '../../../../services/models/page-response-board-game-response';
 import {BoardGameResponse} from '../../../../services/models/board-game-response';
@@ -20,7 +20,7 @@ export class BoardGameListComponent implements OnInit{
   level: 'success' | 'error'="success";
 
   constructor (
-    private boardGameService: BoardGameService,
+    private boardGameService: BoardGameControllerService,
     private router: Router,
   ){
   }

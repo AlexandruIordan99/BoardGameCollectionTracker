@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {BoardGameRequest} from '../../../../services/models/board-game-request';
-import {BoardGameService} from '../../../../services/services/board-game.service';
+import {BoardGameControllerService} from '../../../../services/services/board-game-controller.service';
 import {ActivatedRoute, Router} from '@angular/router';
 
 
@@ -21,7 +21,7 @@ export class ManageBoardGamesComponent implements OnInit {
     publisher: '', title: ''};
 
   constructor(
-    private boardGameService: BoardGameService,
+    private boardGameService: BoardGameControllerService,
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) {

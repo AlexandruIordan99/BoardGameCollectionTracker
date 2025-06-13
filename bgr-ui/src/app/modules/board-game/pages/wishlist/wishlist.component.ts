@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import {PageResponseBoardGameResponse} from '../../../../services/models/page-response-board-game-response';
-import {BoardGameService} from '../../../../services/services/board-game.service';
+import {BoardGameControllerService} from '../../../../services/services/board-game-controller.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -8,9 +8,9 @@ import {Router} from '@angular/router';
   standalone: false,
 
   templateUrl: './wishlist.component.html',
-  styleUrl: './wishlist.component.scss'
+  styleUrls: ['./wishlist.component.scss']
 })
-export class WishlistComponent {
+export class WishlistComponent implements OnInit{
 
   page = 0;
   size = 5;
@@ -18,7 +18,7 @@ export class WishlistComponent {
   BoardGameResponse: PageResponseBoardGameResponse = {};
 
   constructor (
-    private boardGameService: BoardGameService,
+    private boardGameService: BoardGameControllerService,
     private router: Router,
   ){
   }

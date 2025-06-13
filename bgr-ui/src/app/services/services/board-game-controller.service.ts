@@ -12,26 +12,30 @@ import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
 import { BoardGameResponse } from '../models/board-game-response';
-import { deleteBoardGame } from '../fn/board-game/delete-board-game';
-import { DeleteBoardGame$Params } from '../fn/board-game/delete-board-game';
-import { findAllBoardGames } from '../fn/board-game/find-all-board-games';
-import { FindAllBoardGames$Params } from '../fn/board-game/find-all-board-games';
-import { findAllBoardGamesByOwner } from '../fn/board-game/find-all-board-games-by-owner';
-import { FindAllBoardGamesByOwner$Params } from '../fn/board-game/find-all-board-games-by-owner';
-import { findBoardGameById } from '../fn/board-game/find-board-game-by-id';
-import { FindBoardGameById$Params } from '../fn/board-game/find-board-game-by-id';
+import { deleteBoardGame } from '../fn/board-game-controller/delete-board-game';
+import { DeleteBoardGame$Params } from '../fn/board-game-controller/delete-board-game';
+import { findAllBoardGames } from '../fn/board-game-controller/find-all-board-games';
+import { FindAllBoardGames$Params } from '../fn/board-game-controller/find-all-board-games';
+import { findAllBoardGamesByOwner } from '../fn/board-game-controller/find-all-board-games-by-owner';
+import { FindAllBoardGamesByOwner$Params } from '../fn/board-game-controller/find-all-board-games-by-owner';
+import { findBoardGameById } from '../fn/board-game-controller/find-board-game-by-id';
+import { FindBoardGameById$Params } from '../fn/board-game-controller/find-board-game-by-id';
 import { PageResponseBoardGameResponse } from '../models/page-response-board-game-response';
-import { saveBoardGame } from '../fn/board-game/save-board-game';
-import { SaveBoardGame$Params } from '../fn/board-game/save-board-game';
-import { updateArchivedStatus } from '../fn/board-game/update-archived-status';
-import { UpdateArchivedStatus$Params } from '../fn/board-game/update-archived-status';
-import { updateShareableStatus } from '../fn/board-game/update-shareable-status';
-import { UpdateShareableStatus$Params } from '../fn/board-game/update-shareable-status';
-import { uploadBoardGameSplashArt } from '../fn/board-game/upload-board-game-splash-art';
-import { UploadBoardGameSplashArt$Params } from '../fn/board-game/upload-board-game-splash-art';
+import { saveBoardGame } from '../fn/board-game-controller/save-board-game';
+import { SaveBoardGame$Params } from '../fn/board-game-controller/save-board-game';
+import { updateArchivedStatus } from '../fn/board-game-controller/update-archived-status';
+import { UpdateArchivedStatus$Params } from '../fn/board-game-controller/update-archived-status';
+import { updateBoardGameDescription } from '../fn/board-game-controller/update-board-game-description';
+import { UpdateBoardGameDescription$Params } from '../fn/board-game-controller/update-board-game-description';
+import { updateShareableStatus } from '../fn/board-game-controller/update-shareable-status';
+import { UpdateShareableStatus$Params } from '../fn/board-game-controller/update-shareable-status';
+import { updateWishlistedStatus } from '../fn/board-game-controller/update-wishlisted-status';
+import { UpdateWishlistedStatus$Params } from '../fn/board-game-controller/update-wishlisted-status';
+import { uploadBoardGameSplashArt } from '../fn/board-game-controller/upload-board-game-splash-art';
+import { UploadBoardGameSplashArt$Params } from '../fn/board-game-controller/upload-board-game-splash-art';
 
 @Injectable({ providedIn: 'root' })
-export class BoardGameService extends BaseService {
+export class BoardGameControllerService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
   }
@@ -86,6 +90,31 @@ export class BoardGameService extends BaseService {
     );
   }
 
+  /** Path part for operation `updateWishlistedStatus()` */
+  static readonly UpdateWishlistedStatusPath = '/boardgame/wishlisted/{boardgame-id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `updateWishlistedStatus()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  updateWishlistedStatus$Response(params: UpdateWishlistedStatus$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+    return updateWishlistedStatus(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `updateWishlistedStatus$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  updateWishlistedStatus(params: UpdateWishlistedStatus$Params, context?: HttpContext): Observable<number> {
+    return this.updateWishlistedStatus$Response(params, context).pipe(
+      map((r: StrictHttpResponse<number>): number => r.body)
+    );
+  }
+
   /** Path part for operation `updateShareableStatus()` */
   static readonly UpdateShareableStatusPath = '/boardgame/shareable/{boardgame-id}';
 
@@ -107,6 +136,31 @@ export class BoardGameService extends BaseService {
    */
   updateShareableStatus(params: UpdateShareableStatus$Params, context?: HttpContext): Observable<number> {
     return this.updateShareableStatus$Response(params, context).pipe(
+      map((r: StrictHttpResponse<number>): number => r.body)
+    );
+  }
+
+  /** Path part for operation `updateBoardGameDescription()` */
+  static readonly UpdateBoardGameDescriptionPath = '/boardgame/description/{boardgame-id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `updateBoardGameDescription()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  updateBoardGameDescription$Response(params: UpdateBoardGameDescription$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+    return updateBoardGameDescription(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `updateBoardGameDescription$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  updateBoardGameDescription(params: UpdateBoardGameDescription$Params, context?: HttpContext): Observable<number> {
+    return this.updateBoardGameDescription$Response(params, context).pipe(
       map((r: StrictHttpResponse<number>): number => r.body)
     );
   }

@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { ReviewsService } from './services/reviews.service';
-import { BoardGameService } from './services/board-game.service';
+import { BoardGameControllerService } from './services/board-game-controller.service';
 import { AuthenticationControllerService } from './services/authentication-controller.service';
 
 /**
@@ -19,7 +19,7 @@ import { AuthenticationControllerService } from './services/authentication-contr
   declarations: [],
   providers: [
     ReviewsService,
-    BoardGameService,
+    BoardGameControllerService,
     AuthenticationControllerService,
     ApiConfiguration
   ],

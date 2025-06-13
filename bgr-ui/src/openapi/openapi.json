@@ -1,8 +1,13 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "OpenAPI definition",
-    "version": "v0"
+    "title": "OpenApi specification - Alexandru",
+    "description": "OpenApi documentation for Spring application",
+    "contact": {
+      "name": "Alexandru",
+      "email": "alexandru.ioan39@gmail.com"
+    },
+    "version": "1.0"
   },
   "servers": [
     {
@@ -50,7 +55,7 @@
     "/boardgame": {
       "get": {
         "tags": [
-          "BoardGame"
+          "board-game-controller"
         ],
         "operationId": "findAllBoardGames",
         "parameters": [
@@ -71,7 +76,7 @@
             "schema": {
               "type": "integer",
               "format": "int32",
-              "default": 10
+              "default": 5
             }
           }
         ],
@@ -90,7 +95,7 @@
       },
       "post": {
         "tags": [
-          "BoardGame"
+          "board-game-controller"
         ],
         "operationId": "saveBoardGame",
         "requestBody": {
@@ -178,10 +183,42 @@
         }
       }
     },
+    "/boardgame/wishlisted/{boardgame-id}": {
+      "patch": {
+        "tags": [
+          "board-game-controller"
+        ],
+        "operationId": "updateWishlistedStatus",
+        "parameters": [
+          {
+            "name": "boardgame-id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/boardgame/shareable/{boardgame-id}": {
       "patch": {
         "tags": [
-          "BoardGame"
+          "board-game-controller"
         ],
         "operationId": "updateShareableStatus",
         "parameters": [
@@ -210,10 +247,52 @@
         }
       }
     },
+    "/boardgame/description/{boardgame-id}": {
+      "patch": {
+        "tags": [
+          "board-game-controller"
+        ],
+        "operationId": "updateBoardGameDescription",
+        "parameters": [
+          {
+            "name": "boardgame-id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/boardgame/cover/{boardgame-id}": {
       "patch": {
         "tags": [
-          "BoardGame"
+          "board-game-controller"
         ],
         "operationId": "uploadBoardGameSplashArt",
         "parameters": [
@@ -262,7 +341,7 @@
     "/boardgame/archived/{boardgame-id}": {
       "patch": {
         "tags": [
-          "BoardGame"
+          "board-game-controller"
         ],
         "operationId": "updateArchivedStatus",
         "parameters": [
@@ -287,65 +366,6 @@
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "/boardgame/{boardgame-id}": {
-      "get": {
-        "tags": [
-          "BoardGame"
-        ],
-        "operationId": "findBoardGameById",
-        "parameters": [
-          {
-            "name": "boardgame-id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BoardGameResponse"
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "BoardGame"
-        ],
-        "operationId": "deleteBoardGame",
-        "parameters": [
-          {
-            "name": "boardgame-id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Board game deleted successfully"
-          },
-          "403": {
-            "description": "Forbidden - You don't own this board game"
-          },
-          "404": {
-            "description": "Board game not found"
           }
         }
       }
@@ -401,10 +421,63 @@
         }
       }
     },
+    "/boardgame/{boardgame-id}": {
+      "get": {
+        "tags": [
+          "board-game-controller"
+        ],
+        "operationId": "findBoardGameById",
+        "parameters": [
+          {
+            "name": "boardgame-id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BoardGameResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "board-game-controller"
+        ],
+        "operationId": "deleteBoardGame",
+        "parameters": [
+          {
+            "name": "boardgame-id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/boardgame/owner": {
       "get": {
         "tags": [
-          "BoardGame"
+          "board-game-controller"
         ],
         "operationId": "findAllBoardGamesByOwner",
         "parameters": [
@@ -425,7 +498,7 @@
             "schema": {
               "type": "integer",
               "format": "int32",
-              "default": 0
+              "default": 5
             }
           }
         ],
@@ -657,6 +730,9 @@
           },
           "shareable": {
             "type": "boolean"
+          },
+          "wishlisted": {
+            "type": "boolean"
           }
         }
       },
@@ -697,6 +773,8 @@
     "securitySchemes": {
       "bearerAuth": {
         "type": "http",
+        "description": "JWT authentication",
+        "in": "header",
         "scheme": "bearer",
         "bearerFormat": "JWT"
       }

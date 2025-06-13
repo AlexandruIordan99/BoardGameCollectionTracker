@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {BoardGameResponse} from '../../../../services/models/board-game-response';
 import {PageResponseReviewResponse} from '../../../../services/models/page-response-review-response';
-import {BoardGameService} from '../../../../services/services/board-game.service';
+import {BoardGameControllerService} from '../../../../services/services/board-game-controller.service';
 import {ReviewsService} from '../../../../services/services/reviews.service';
 
 @Component({
@@ -21,7 +21,7 @@ export class BoardGameDetailsComponent {
   private boardGameId: number = 0;
 
   constructor(
-    private boardGameService: BoardGameService,
+    private boardGameService: BoardGameControllerService,
     private reviewService: ReviewsService,
     private activatedRoute: ActivatedRoute
   ) {

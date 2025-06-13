@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {PageResponseBoardGameResponse} from '../../../../services/models/page-response-board-game-response';
-import {BoardGameService} from '../../../../services/services/board-game.service';
+import {BoardGameControllerService} from '../../../../services/services/board-game-controller.service';
 import {Router} from '@angular/router';
 import {BoardGameResponse} from '../../../../services/models/board-game-response';
 
@@ -19,7 +19,7 @@ export class MyBoardGamesComponent {
   BoardGameResponse: PageResponseBoardGameResponse = {};
 
   constructor (
-    private boardGameService: BoardGameService,
+    private boardGameService: BoardGameControllerService,
     private router: Router,
   ){
   }
