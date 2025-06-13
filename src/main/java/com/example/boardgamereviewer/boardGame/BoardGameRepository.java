@@ -12,13 +12,23 @@ public interface BoardGameRepository extends JpaRepository<BoardGame, Integer>, 
     @Query("""
             SELECT boardGame
             FROM BoardGame boardGame
+            WHERE boardGame.archived = false
+            AND boardGame.shareable = true
             """) //we display all board games that are not archived, that the user owns and that the user
                 //does not own
                 //the owned board games are handled by the findAllBoardGamesByOwner method
 
     Page<BoardGame> findAllDisplayableBoardGames(Pageable pageable, Integer ownerId);
 
-    Page<BoardGame> findByWishlistedTrueAndOwnerId(Pageable pageable, Integer ownerId);
 
+    @Query("""
+    SELECT boardGame
+    FROM BoardGame boardGame
+    WHERE boardGame.archived = false
+    AND boardGame.shareable = true
+    AND boardGame.wishlisted = true
+    AND boardGame.owner.id = :ownerId
+    """)
 
+    Page<BoardGame> findAllDisplayableBoardGamesWishedForByOwner(Pageable pageable,Integer ownerId);
 }
