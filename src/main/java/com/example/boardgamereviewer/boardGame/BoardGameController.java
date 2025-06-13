@@ -48,6 +48,15 @@ public class BoardGameController {
         return ResponseEntity.ok(service.findAllBoardGamesByOwner(page, size, connectedUser));
     }
 
+    @GetMapping("/wishlist")
+    public ResponseEntity<PageResponse<BoardGameResponse>> findMyWishlistedBoardGames(
+      @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+      @RequestParam(name = "size", defaultValue = "5", required = false) int size,
+      Authentication connectedUser
+    ) {
+        return ResponseEntity.ok(service.findAllBoardGamesWishedForByOwner(page, size, connectedUser)); // ✅ now using instance
+    }
+
     @PatchMapping("/shareable/{boardgame-id}")
     public ResponseEntity<Integer> updateShareableStatus(
             @PathVariable("boardgame-id") Integer boardGameId,
