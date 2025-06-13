@@ -54,7 +54,7 @@ public class BoardGameController {
       @RequestParam(name = "size", defaultValue = "5", required = false) int size,
       Authentication connectedUser
     ) {
-        return ResponseEntity.ok(service.findAllBoardGamesWishedForByOwner(page, size, connectedUser)); // ✅ now using instance
+        return ResponseEntity.ok(service.findAllBoardGamesWishedForByOwner(page, size, connectedUser));
     }
 
     @PatchMapping("/shareable/{boardgame-id}")

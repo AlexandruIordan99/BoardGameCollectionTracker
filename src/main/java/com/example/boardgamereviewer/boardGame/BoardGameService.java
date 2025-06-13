@@ -89,7 +89,8 @@ public class BoardGameService {
     public PageResponse<BoardGameResponse> findAllBoardGamesWishedForByOwner(int page, int size, Authentication connectedUser) {
         User user = ((User) connectedUser.getPrincipal());
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
-        Page<BoardGame> boardGames = boardGameRepository.findByWishlistedTrueAndOwnerId(pageable, (user.getId()));
+        Page<BoardGame> boardGames = boardGameRepository.
+          findAllDisplayableBoardGamesWishedForByOwner(pageable, user.getId());
 
 
         List<BoardGameResponse> boardGameResponse = boardGames.stream()
