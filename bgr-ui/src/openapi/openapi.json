@@ -183,6 +183,97 @@
         }
       }
     },
+    "/reviews/boardgame/{boardgame-id}": {
+      "get": {
+        "tags": [
+          "Reviews"
+        ],
+        "operationId": "findAllReviewsByBoardGame",
+        "parameters": [
+          {
+            "name": "boardgame-id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageResponseReviewResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Reviews"
+        ],
+        "operationId": "updateReviewRating",
+        "parameters": [
+          {
+            "name": "boardgame-id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateRatingRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/boardgame/wishlisted/{boardgame-id}": {
       "patch": {
         "tags": [
@@ -370,57 +461,6 @@
         }
       }
     },
-    "/reviews/boardgame/{boardgame-id}": {
-      "get": {
-        "tags": [
-          "Reviews"
-        ],
-        "operationId": "findAllReviewsByBoardGame",
-        "parameters": [
-          {
-            "name": "boardgame-id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 0
-            }
-          },
-          {
-            "name": "size",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 10
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PageResponseReviewResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/boardgame/{boardgame-id}": {
       "get": {
         "tags": [
@@ -470,6 +510,48 @@
         "responses": {
           "200": {
             "description": "OK"
+          }
+        }
+      }
+    },
+    "/boardgame/wishlist": {
+      "get": {
+        "tags": [
+          "board-game-controller"
+        ],
+        "operationId": "findMyWishlistedBoardGames",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 5
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageResponseBoardGameResponse"
+                }
+              }
+            }
           }
         }
       }
@@ -550,7 +632,7 @@
         "type": "object",
         "properties": {
           "rating": {
-            "maximum": 10,
+            "maximum": 5,
             "minimum": 0,
             "type": "number",
             "format": "double"
@@ -641,6 +723,15 @@
         "properties": {
           "token": {
             "type": "string"
+          }
+        }
+      },
+      "UpdateRatingRequest": {
+        "type": "object",
+        "properties": {
+          "rating": {
+            "type": "integer",
+            "format": "int32"
           }
         }
       },
