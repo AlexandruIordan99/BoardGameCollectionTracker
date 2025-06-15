@@ -461,6 +461,38 @@
         }
       }
     },
+    "/reviews/boardgame/{boardgame-id}/my-rating": {
+      "get": {
+        "tags": [
+          "Reviews"
+        ],
+        "operationId": "getCurrentUserRating",
+        "parameters": [
+          {
+            "name": "boardgame-id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "number",
+                  "format": "double"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/boardgame/{boardgame-id}": {
       "get": {
         "tags": [
