@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {BoardGameResponse} from '../../../../services/models/board-game-response';
 import {ReviewsService} from '../../../../services/services/reviews.service';
 import {UpdateReviewRating$Params} from '../../../../services/fn/reviews/update-review-rating';
+import {BoardGameControllerService} from '../../../../services/services/board-game-controller.service'; // Add this import
 
 @Component({
   selector: 'app-boardgame-card',
@@ -14,10 +15,13 @@ import {UpdateReviewRating$Params} from '../../../../services/fn/reviews/update-
 export class BoardGameCardComponent {
 
   private _boardGame: BoardGameResponse ={} as BoardGameResponse;
-  private _boardGameCoverImage: string | undefined;
   private _manage = false;
   private _canUserRate = true;
   private _currentUserRating = 0;
+
+
+  constructor(private reviewsService: ReviewsService,
+              private boardGameService: BoardGameControllerService) {}
 
   get boardGame(): BoardGameResponse {
     return this._boardGame;
@@ -70,6 +74,7 @@ export class BoardGameCardComponent {
   @Output() private delete: EventEmitter<BoardGameResponse> = new EventEmitter<BoardGameResponse>();
   @Output() private wishlist: EventEmitter<BoardGameResponse> = new EventEmitter<BoardGameResponse>();
   @Output() details = new EventEmitter<BoardGameResponse>();
+  @Output() addToWishlist = new EventEmitter<BoardGameResponse>();
 
   onShowDetails() {
      this.showDetails.emit(this.boardGame);
@@ -92,10 +97,23 @@ export class BoardGameCardComponent {
   }
 
   onWishlist(){
-    this.wishlist.emit(this.boardGame);
-  }
+    if (!this.boardGame.id) {
+      console.error('Board game ID is required for wishlist operation');
+      return;
+    }
+    const boardGameId: number = this.boardGame.id;
 
-  constructor(private reviewsService: ReviewsService) {}
+    this.boardGameService.updateWishlistedStatus({'boardgame-id': boardGameId}).subscribe({
+      next: (response) => {
+        console.log('Wishlist status updated successfully', response);
+        this._boardGame.wishlisted = !this._boardGame.wishlisted;
+        this.wishlist.emit(this.boardGame);
+      },
+      error: (error) => {
+        console.error('Error updating wishlist status:', error);
+      }
+    });
+  }
 
   private loadCurrentUserRating(boardGameId: number): void {
     this.reviewsService.getCurrentUserRating({'boardgame-id': boardGameId}).subscribe({
@@ -119,7 +137,8 @@ export class BoardGameCardComponent {
     this.reviewsService.updateReviewRating(params).subscribe({
       next: (response) => {
         console.log('Rating updated successfully', response);
-        window.location.reload();
+        window.location.reload();  //considering doing this differently, just a patchwork measure for now
+                                  //react states would have made it easy crying emoji
 
       },
       error: (error) => {

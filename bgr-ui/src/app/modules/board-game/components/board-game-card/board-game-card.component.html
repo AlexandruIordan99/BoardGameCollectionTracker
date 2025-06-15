@@ -23,7 +23,10 @@
       </span>
     </div>
     <div class="d-flex gap-2" *ngIf="!manage">
-      <i (click)="onWishlist()" class="fas fa-heart text-danger"></i>
+      <i (click)="onWishlist()"
+         [class]="boardGame.wishlisted ? 'fas fa-heart text-danger' : 'far fa-heart text-danger'"
+         style="cursor: pointer;"
+         [title]="boardGame.wishlisted ? 'Remove from wishlist' : 'Add to wishlist'"></i>
     </div>
     <div class="d-flex gap-2" *ngIf="manage">
       <i (click)="onEdit()" class="fas fa-edit text-success"></i>
