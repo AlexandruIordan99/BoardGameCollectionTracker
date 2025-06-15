@@ -16,7 +16,9 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-
+@Table(uniqueConstraints = {
+  @UniqueConstraint(columnNames = {"board_game_id", "created_by"})
+})
 public class Review extends BaseEntity {
 
     private Double rating;
@@ -24,7 +26,7 @@ public class Review extends BaseEntity {
     private String comment; //the content of the review
 
     @ManyToOne
-    @JoinColumn(name="boardGame_id")
+    @JoinColumn(name="board_game_id")
     private BoardGame boardGame;
 
 }
