@@ -24,9 +24,9 @@ public class BoardGame extends BaseEntity {
 
     private String title;
     private String description;
-    private String developer; //company or person who developed the game
+    private String developer;
     private String publisher;
-    private String gameSplashArt; //to be stored on server because it would take too much space on a database
+    private String gameSplashArt;
     private boolean archived;
     private boolean shareable;
     private boolean wishlisted;
