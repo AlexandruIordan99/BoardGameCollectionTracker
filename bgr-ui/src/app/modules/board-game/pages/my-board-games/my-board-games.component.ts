@@ -102,14 +102,12 @@ export class MyBoardGamesComponent {
     this.showDescriptionModal = true;
   }
 
-  // New method to close modal
   closeDescriptionModal() {
     this.showDescriptionModal = false;
     this.editingBoardGame = null;
     this.tempDescription = '';
   }
 
-  // New method to save description changes
   saveDescriptionChanges() {
     if (!this.tempDescription.trim()) {
       alert('Description cannot be empty');
@@ -143,30 +141,6 @@ export class MyBoardGamesComponent {
     }).subscribe({
       next:() =>{
         boardGame.shareable = !boardGame.shareable;
-      }
-    })
-  }
-
-  deleteBoardGame(boardGame: BoardGameResponse){
-    this.boardGameService.deleteBoardGame({
-      'boardgame-id': boardGame.id as number
-    }).subscribe({
-      next: () =>{
-        if (this.BoardGameResponse.content){
-          this.BoardGameResponse.content = this.BoardGameResponse.content.filter(
-            game => game.id !== boardGame.id  // Fixed the filter logic here
-          )
-        }
-        if (this.BoardGameResponse.content?.length === 0 && this.page > 0) {
-          this.page--;
-          this.findAllBoardGamesByOwner();
-        } else if (this.BoardGameResponse.content?.length === 0 && this.page === 0) {
-          this.findAllBoardGamesByOwner();
-        }
-      },
-      error: (err: any) =>{
-        console.error("Error deleting board game", err);
-        alert("Failed to delete board game. Please try again.")
       }
     })
   }
