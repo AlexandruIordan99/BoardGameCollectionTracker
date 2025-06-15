@@ -13,9 +13,13 @@ import { StrictHttpResponse } from '../strict-http-response';
 
 import { findAllReviewsByBoardGame } from '../fn/reviews/find-all-reviews-by-board-game';
 import { FindAllReviewsByBoardGame$Params } from '../fn/reviews/find-all-reviews-by-board-game';
+import { getCurrentUserRating } from '../fn/reviews/get-current-user-rating';
+import { GetCurrentUserRating$Params } from '../fn/reviews/get-current-user-rating';
 import { PageResponseReviewResponse } from '../models/page-response-review-response';
 import { saveReview } from '../fn/reviews/save-review';
 import { SaveReview$Params } from '../fn/reviews/save-review';
+import { updateReviewRating } from '../fn/reviews/update-review-rating';
+import { UpdateReviewRating$Params } from '../fn/reviews/update-review-rating';
 
 @Injectable({ providedIn: 'root' })
 export class ReviewsService extends BaseService {
@@ -70,6 +74,56 @@ export class ReviewsService extends BaseService {
   findAllReviewsByBoardGame(params: FindAllReviewsByBoardGame$Params, context?: HttpContext): Observable<PageResponseReviewResponse> {
     return this.findAllReviewsByBoardGame$Response(params, context).pipe(
       map((r: StrictHttpResponse<PageResponseReviewResponse>): PageResponseReviewResponse => r.body)
+    );
+  }
+
+  /** Path part for operation `updateReviewRating()` */
+  static readonly UpdateReviewRatingPath = '/reviews/boardgame/{boardgame-id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `updateReviewRating()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  updateReviewRating$Response(params: UpdateReviewRating$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+    return updateReviewRating(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `updateReviewRating$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  updateReviewRating(params: UpdateReviewRating$Params, context?: HttpContext): Observable<number> {
+    return this.updateReviewRating$Response(params, context).pipe(
+      map((r: StrictHttpResponse<number>): number => r.body)
+    );
+  }
+
+  /** Path part for operation `getCurrentUserRating()` */
+  static readonly GetCurrentUserRatingPath = '/reviews/boardgame/{boardgame-id}/my-rating';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getCurrentUserRating()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getCurrentUserRating$Response(params: GetCurrentUserRating$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+    return getCurrentUserRating(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getCurrentUserRating$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getCurrentUserRating(params: GetCurrentUserRating$Params, context?: HttpContext): Observable<number> {
+    return this.getCurrentUserRating$Response(params, context).pipe(
+      map((r: StrictHttpResponse<number>): number => r.body)
     );
   }
 

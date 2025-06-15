@@ -20,6 +20,8 @@ import { findAllBoardGamesByOwner } from '../fn/board-game-controller/find-all-b
 import { FindAllBoardGamesByOwner$Params } from '../fn/board-game-controller/find-all-board-games-by-owner';
 import { findBoardGameById } from '../fn/board-game-controller/find-board-game-by-id';
 import { FindBoardGameById$Params } from '../fn/board-game-controller/find-board-game-by-id';
+import { findMyWishlistedBoardGames } from '../fn/board-game-controller/find-my-wishlisted-board-games';
+import { FindMyWishlistedBoardGames$Params } from '../fn/board-game-controller/find-my-wishlisted-board-games';
 import { PageResponseBoardGameResponse } from '../models/page-response-board-game-response';
 import { saveBoardGame } from '../fn/board-game-controller/save-board-game';
 import { SaveBoardGame$Params } from '../fn/board-game-controller/save-board-game';
@@ -266,6 +268,31 @@ export class BoardGameControllerService extends BaseService {
   deleteBoardGame(params: DeleteBoardGame$Params, context?: HttpContext): Observable<void> {
     return this.deleteBoardGame$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `findMyWishlistedBoardGames()` */
+  static readonly FindMyWishlistedBoardGamesPath = '/boardgame/wishlist';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `findMyWishlistedBoardGames()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findMyWishlistedBoardGames$Response(params?: FindMyWishlistedBoardGames$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseBoardGameResponse>> {
+    return findMyWishlistedBoardGames(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `findMyWishlistedBoardGames$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findMyWishlistedBoardGames(params?: FindMyWishlistedBoardGames$Params, context?: HttpContext): Observable<PageResponseBoardGameResponse> {
+    return this.findMyWishlistedBoardGames$Response(params, context).pipe(
+      map((r: StrictHttpResponse<PageResponseBoardGameResponse>): PageResponseBoardGameResponse => r.body)
     );
   }
 

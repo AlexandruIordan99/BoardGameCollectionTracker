@@ -11,3 +11,4 @@ export { PageResponseReviewResponse } from './models/page-response-review-respon
 export { RegistrationRequest } from './models/registration-request';
 export { ReviewRequest } from './models/review-request';
 export { ReviewResponse } from './models/review-response';
+export { UpdateRatingRequest } from './models/update-rating-request';
