@@ -1,13 +1,20 @@
-<div class="rating">
-  <ng-container *ngFor="let _ of [].constructor(fullStars); let i = index">
-    <i class="fas fa-star text-warning"></i>
-  </ng-container>
-  <ng-container *ngIf = "showsHalfStar">
-    <i class="fas fa-star-half-alt text-warning"></i>
-  </ng-container>
-  <ng-container *ngFor="let _ of [].constructor(emptyStars); let i = index">
-    <i class="fas fa-star"></i>
-  </ng-container>
+<!-- rating.component.html -->
+<div class="rating" (mouseleave)="onMouseLeave()">
+  <ng-container *ngFor="let star of [].constructor(maxRating); let i = index">
+    <span class="star-container">
+      <i
+        class="fas fa-star star-base"
+        [class.text-warning]="shouldShowFilledStar(i)"
+        [class.text-muted]="!shouldShowFilledStar(i)"
+        [style.cursor]="readonly ? 'default' : 'pointer'"
+        (click)="onStarClick(i)"
+        (mouseenter)="onStarHover(i)">
+      </i>
 
-
+      <i *ngIf="shouldShowHalfStar(i)"
+         class="fas fa-star-half-alt text-warning star-half"
+         [style.pointer-events]="'none'">
+      </i>
+    </span>
+  </ng-container>
 </div>

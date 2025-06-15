@@ -14,7 +14,10 @@
   </div>
   <div class="card-footer d-flex gap-2 justify-content-between align-items-center">
     <div class="d-flex gap-2">
-      <app-rating [rating]="boardGame.rating || 0"></app-rating>
+      <app-rating  [rating]="currentUserRating"
+                   [boardGameId]="boardGame.id || 0"
+                   [readonly]="!canUserRate"
+                   (ratingChange)="onRatingChange($event)"></app-rating>
       <span class="fw-bold" *ngIf="boardGame.rating || 0 > 0">
         {{boardGame.rating}}
       </span>
