@@ -27,6 +27,17 @@ export class BoardGameCardComponent {
     return this._boardGame;
   }
 
+  @Output() private showDetails: EventEmitter<BoardGameResponse> = new EventEmitter<BoardGameResponse>();
+  @Output() private edit: EventEmitter<BoardGameResponse> = new EventEmitter<BoardGameResponse>();
+  @Output() private share: EventEmitter<BoardGameResponse> = new EventEmitter<BoardGameResponse>();
+  @Output() private archive: EventEmitter<BoardGameResponse> = new EventEmitter<BoardGameResponse>();
+  @Output() private delete: EventEmitter<BoardGameResponse> = new EventEmitter<BoardGameResponse>();
+  @Output() private wishlist: EventEmitter<BoardGameResponse> = new EventEmitter<BoardGameResponse>();
+  @Output() details = new EventEmitter<BoardGameResponse>();
+  @Output() addToWishlist = new EventEmitter<BoardGameResponse>();
+  @Output() editDescription = new EventEmitter<BoardGameResponse>();
+
+
   @Input()
   set boardGame(value: BoardGameResponse) {
     this._boardGame = value;
@@ -66,16 +77,6 @@ export class BoardGameCardComponent {
     this._currentUserRating = value || 0;
   }
 
-
-  @Output() private showDetails: EventEmitter<BoardGameResponse> = new EventEmitter<BoardGameResponse>();
-  @Output() private edit: EventEmitter<BoardGameResponse> = new EventEmitter<BoardGameResponse>();
-  @Output() private share: EventEmitter<BoardGameResponse> = new EventEmitter<BoardGameResponse>();
-  @Output() private archive: EventEmitter<BoardGameResponse> = new EventEmitter<BoardGameResponse>();
-  @Output() private delete: EventEmitter<BoardGameResponse> = new EventEmitter<BoardGameResponse>();
-  @Output() private wishlist: EventEmitter<BoardGameResponse> = new EventEmitter<BoardGameResponse>();
-  @Output() details = new EventEmitter<BoardGameResponse>();
-  @Output() addToWishlist = new EventEmitter<BoardGameResponse>();
-
   onShowDetails() {
      this.showDetails.emit(this.boardGame);
   }
@@ -94,6 +95,10 @@ export class BoardGameCardComponent {
 
   onDelete(){
     this.delete.emit(this.boardGame)
+  }
+
+  onEditDescription() {
+    this.editDescription.emit(this.boardGame);
   }
 
   onWishlist(){

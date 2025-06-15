@@ -7,7 +7,6 @@ import {BoardGameResponse} from '../../../../services/models/board-game-response
 @Component({
   selector: 'app-my-board-games',
   standalone: false,
-
   templateUrl: './my-board-games.component.html',
   styleUrl: './my-board-games.component.scss'
 })
@@ -17,6 +16,9 @@ export class MyBoardGamesComponent {
   size = 5;
   pages: any=[]
   BoardGameResponse: PageResponseBoardGameResponse = {};
+  showDescriptionModal: boolean = false;
+  editingBoardGame: BoardGameResponse | null = null;
+  tempDescription: string = '';
 
   constructor (
     private boardGameService: BoardGameControllerService,
@@ -28,8 +30,7 @@ export class MyBoardGamesComponent {
     this.findAllBoardGamesByOwner();
   }
 
-
-private findAllBoardGamesByOwner(){
+  private findAllBoardGamesByOwner(){
     this.boardGameService.findAllBoardGamesByOwner({
       page: this.page,
       size:this.size
@@ -42,18 +43,15 @@ private findAllBoardGamesByOwner(){
             boardGame => !boardGame.archived);
         }  ///hides archived games
 
-
         this.pages = Array(this.BoardGameResponse.totalPages)
           .fill(0)
           .map((x, i) => i);
       },
-
       error:  (err) => {
         console.error("Error grabbing board games", err)
       }
     })
   }
-
 
   goToFirstPage() {
     this.page = 0;
@@ -85,17 +83,58 @@ private findAllBoardGamesByOwner(){
   }
 
   archiveBoardGame(boardGame: BoardGameResponse) {
-     this.boardGameService.updateArchivedStatus({
-       'boardgame-id': boardGame.id as number
-     }).subscribe({
-       next:() =>{
-         boardGame.archived = !boardGame.archived;
-       }
-     });
+    this.boardGameService.updateArchivedStatus({
+      'boardgame-id': boardGame.id as number
+    }).subscribe({
+      next:() =>{
+        boardGame.archived = !boardGame.archived;
+      }
+    });
   }
 
   editBoardGame(boardGame: BoardGameResponse) {
     this.router.navigate(['boardgames', 'manage', boardGame.id])
+  }
+
+  openDescriptionModal(boardGame: BoardGameResponse) {
+    this.editingBoardGame = boardGame;
+    this.tempDescription = boardGame.description || '';
+    this.showDescriptionModal = true;
+  }
+
+  // New method to close modal
+  closeDescriptionModal() {
+    this.showDescriptionModal = false;
+    this.editingBoardGame = null;
+    this.tempDescription = '';
+  }
+
+  // New method to save description changes
+  saveDescriptionChanges() {
+    if (!this.tempDescription.trim()) {
+      alert('Description cannot be empty');
+      return;
+    }
+
+    if (!this.editingBoardGame) return;
+
+    this.boardGameService.updateBoardGameDescription({
+      'boardgame-id': this.editingBoardGame.id as number,
+      body: this.tempDescription
+    }).subscribe({
+      next: () => {
+        // Update the local board game object
+        if (this.editingBoardGame) {
+          this.editingBoardGame.description = this.tempDescription;
+        }
+        this.closeDescriptionModal();
+        console.log('Description updated successfully');
+      },
+      error: (err) => {
+        console.error('Error updating description:', err);
+        alert('Failed to update description. Please try again.');
+      }
+    });
   }
 
   shareBoardGame(boardGame: BoardGameResponse) {
@@ -115,7 +154,7 @@ private findAllBoardGamesByOwner(){
       next: () =>{
         if (this.BoardGameResponse.content){
           this.BoardGameResponse.content = this.BoardGameResponse.content.filter(
-            boardGame =>boardGame.id! ==boardGame.id
+            game => game.id !== boardGame.id  // Fixed the filter logic here
           )
         }
         if (this.BoardGameResponse.content?.length === 0 && this.page > 0) {
@@ -128,10 +167,7 @@ private findAllBoardGamesByOwner(){
       error: (err: any) =>{
         console.error("Error deleting board game", err);
         alert("Failed to delete board game. Please try again.")
-    }
+      }
     })
-
   }
-
-
 }

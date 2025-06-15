@@ -1,11 +1,12 @@
 <h3>Board Game List</h3>
 <hr>
-<div class ="d-flex justify-content-end mb-3">
-  <a routerLink = "/manage" class="btn btn-outline-primary">
+<div class="d-flex justify-content-end mb-3">
+  <a routerLink="/manage" class="btn btn-outline-primary">
     <i class="fas fa-plus"></i>&nbsp;New board game
   </a>
 </div>
-<div class ="d-flex justify-content-start gap-2 flex-wrap">
+
+<div class="d-flex justify-content-start gap-2 flex-wrap">
   <app-boardgame-card
     [boardGame]="boardGame"
     *ngFor="let boardGame of BoardGameResponse.content"
@@ -13,9 +14,54 @@
     (archive)="archiveBoardGame($event)"
     (edit)="editBoardGame($event)"
     (share)="shareBoardGame($event)"
+    (editDescription)="openDescriptionModal($event)"
   >
     {{boardGame.title}}
   </app-boardgame-card>
+</div>
+
+<!-- Description Edit Modal -->
+<div class="modal-overlay" *ngIf="showDescriptionModal" (click)="closeDescriptionModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h5 class="modal-title">Edit Description</h5>
+      <button type="button" class="btn-close" (click)="closeDescriptionModal()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="mb-3">
+        <div class="form-label fw-bold">Game: {{editingBoardGame?.title}}</div>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea
+          id="description"
+          class="form-control"
+          rows="6"
+          [(ngModel)]="tempDescription"
+          placeholder="Enter board game description..."
+        ></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="closeDescriptionModal()"
+      >
+        Cancel
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="saveDescriptionChanges()"
+        [disabled]="!tempDescription.trim()"
+      >
+        <i class="fas fa-save"></i> Save Changes
+      </button>
+    </div>
+  </div>
 </div>
 
 <div class="pagination-container d-flex justify-content-center mt-3">
