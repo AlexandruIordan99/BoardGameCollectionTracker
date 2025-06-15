@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -38,6 +39,12 @@ public class ReviewService {
         Review review = reviewMapper.toReview(request);
         return reviewRepository.save(review).getId();
 
+    }
+
+    public Double getCurrentUserRating(Integer boardGameId, Authentication connectedUser) {
+        User user = ((User) connectedUser.getPrincipal());
+        Optional<Review> review = reviewRepository.findByBoardGameIdAndUserId(boardGameId, user.getId());
+        return review.map(Review::getRating).orElse(0.0);
     }
 
     public Integer updateReviewRating(Integer boardGameId, double rating, Authentication connectedUser) {

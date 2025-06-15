@@ -35,6 +35,13 @@ public class ReviewController {
         return ResponseEntity.ok(service.findAllReviews(boardGameId,page, size, connectedUser));
     }
 
+    @GetMapping("/boardgame/{boardgame-id}/my-rating")
+    public ResponseEntity<Double> getCurrentUserRating(
+      @PathVariable("boardgame-id") Integer boardGameId,
+      Authentication connectedUser) {
+        return ResponseEntity.ok(service.getCurrentUserRating(boardGameId, connectedUser));
+    }
+
     @PatchMapping("/boardgame/{boardgame-id}")
     public ResponseEntity<Integer> updateReviewRating(
       @PathVariable("boardgame-id") Integer boardGameId,
