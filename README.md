@@ -1,10 +1,10 @@
-Personal project focused on the Spring and Angular frameworks. Currently users can register and activate their accounts. The backend work for adding/removing, rating and reviewing board games is complete. 
-The authentication and registration process also works on the frontend. 
-The users can reach the main page of the website and can interact with the menu at the top of the page. 
-The boardgames can now be displayed and new games can be added directly from the frontend.
+Personal project focused on the Spring and Angular frameworks. Currently users can register, activate their accounts 
+and add board games to the website. The board games they personally add to the website are also added to their collections
+The users can wishlist games, they can alter the description of games they own in case they made a mistake when 
+writing it on upload, and they can archive (soft delete through patch mapping) the games they no longer have 
+in their collections.
 
-Current to-dos: Frontend implementations of updating ratings, wishlisting games.
-**Prerequisites - Tools**
+Current to-dos: No to-dos for now.
 
 Gradle - 8.5
 
