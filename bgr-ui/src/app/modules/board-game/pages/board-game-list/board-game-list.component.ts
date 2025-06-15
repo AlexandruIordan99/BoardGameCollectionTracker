@@ -83,7 +83,7 @@ export class BoardGameListComponent implements OnInit{
     this.findAllBoardGames();
   }
 
-  get isLastPage(): boolean {//need more testing to see whether this gets capped or not
+  get isLastPage(): boolean {
     return this.page === this.BoardGameResponse.totalPages as number -1;
   }
   get isFirstPage(): boolean {
