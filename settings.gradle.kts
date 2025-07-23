@@ -1,1 +1,1 @@
-rootProject.name = "BoardGameReviewWebsite"
+rootProject.name = "BoardGameCollectionTracker"

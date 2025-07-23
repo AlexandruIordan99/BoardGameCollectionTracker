@@ -14,21 +14,41 @@ services:
     networks:
       - spring-demo
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
   mail-dev:
     container_name: mail-dev-bgr
     image: maildev/maildev
     ports:
-      - 1080:1080  #for web service
-      - 1025:1025  #for SMTP (simple mai transfer protocol)
+      - 1080:1080
+      - 1025:1025
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - spring-demo
 
+  spring-app:
+    container_name: spring-app-bgr
+    build:
+      context: .
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - 8088:8088
+    networks:
+      - spring-demo
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
 
 networks:
   spring-demo:
-    driver: bridge  #lets containers from the same network communicate, and isolates them from containers
-                    #from other networks
+    driver: bridge
 
-
-volumes:   #used for persistent data, if the app fails, the data still exists
+volumes:
   postgres:
-    driver: local
